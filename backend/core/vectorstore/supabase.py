@@ -54,5 +54,7 @@ class CustomSupabaseVectorStore(SupabaseVectorStore):
         ]
 
         documents = [doc for doc, _ in match_result]
+        print("####################################################################")
+        print(documents)
 
         return documents

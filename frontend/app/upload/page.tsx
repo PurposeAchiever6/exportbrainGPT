@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 
+import { useBrainApi } from "@/lib/api/brain/useBrainApi";
 import { BrainRoleType } from "@/lib/components/NavBar/components/NavItems/components/BrainsDropDown/components/BrainActions/types";
 import Button from "@/lib/components/ui/Button";
 import { Divider } from "@/lib/components/ui/Divider";
 import PageHeading from "@/lib/components/ui/PageHeading";
 import { useBrainContext } from "@/lib/context/BrainProvider/hooks/useBrainContext";
 import { useSupabase } from "@/lib/context/SupabaseProvider";
+import { useToast } from "@/lib/hooks";
 import { redirectToLogin } from "@/lib/router/redirectToLogin";
 
 import { Crawler } from "./components/Crawler";
@@ -15,8 +17,10 @@ import { FileUploader } from "./components/FileUploader";
 const requiredRolesForUpload: BrainRoleType[] = ["Editor", "Owner"];
 
 const UploadPage = (): JSX.Element => {
+  const { getLinkedinScraping } = useBrainApi();
   const { currentBrain } = useBrainContext();
   const { session } = useSupabase();
+  const { publish } = useToast();
 
   if (session === null) {
     redirectToLogin();
@@ -52,8 +56,29 @@ const UploadPage = (): JSX.Element => {
     );
   }
 
+  const linkedinScraping = async () => {
+    // @ts-ignore : I'm ignoring this because of some specific reason.
+    await getLinkedinScraping(currentBrain.id).then((data) => {
+      if (data !== "") {
+        publish({
+          variant: "success",
+          text: data,
+        });
+      }
+    });
+  };
+
   return (
     <main className="pt-10">
+      <div className="flex flex-col items-center justify-center gap-5">
+      <Button
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onClick={() => linkedinScraping()}
+      >
+        Linkedin Scraping
+      </Button>
+      </div>
+      <br />
       <PageHeading
         title={`Upload Knowledge to ${currentBrain.name}`}
         subtitle="Text, document, spreadsheet, presentation, audio, video, and URLs supported"

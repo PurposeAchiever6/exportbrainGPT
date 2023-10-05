@@ -39,6 +39,10 @@ export const useSettingsTab = ({ brainId }: UseSettingsTabProps) => {
       title: "",
       content: "",
     },
+    linkedin: "",
+    extraversion: 0,
+    neuroticism: 0,
+    conscientiousness: 0,
   };
 
   const {
@@ -58,6 +62,10 @@ export const useSettingsTab = ({ brainId }: UseSettingsTabProps) => {
   const model = watch("model");
   const temperature = watch("temperature");
   const maxTokens = watch("maxTokens");
+  const linkedin = watch("linkedin");
+  const extraversion = watch("extraversion");
+  const neuroticism = watch("neuroticism");
+  const conscientiousness = watch("conscientiousness");
 
   const fetchBrain = async () => {
     const brain = await getBrain(brainId);
@@ -81,6 +89,26 @@ export const useSettingsTab = ({ brainId }: UseSettingsTabProps) => {
         brain["openai_api_key"] !== undefined
       ) {
         setValue("openAiKey", brain["openai_api_key"]);
+        continue;
+      }
+
+      if (brainKey === "linkedin" && brain["linkedin"] !== undefined) {
+        setValue("linkedin", brain["linkedin"]);
+        continue;
+      }
+
+      if (brainKey === "extraversion" && brain["extraversion"] !== undefined) {
+        setValue("extraversion", brain["extraversion"]);
+        continue;
+      }
+
+      if (brainKey === "neuroticism" && brain["neuroticism"] !== undefined) {
+        setValue("neuroticism", brain["neuroticism"]);
+        continue;
+      }
+
+      if (brainKey === "conscientiousness" && brain["conscientiousness"] !== undefined) {
+        setValue("conscientiousness", brain["conscientiousness"]);
         continue;
       }
 
@@ -319,6 +347,10 @@ export const useSettingsTab = ({ brainId }: UseSettingsTabProps) => {
     model,
     temperature,
     maxTokens,
+    linkedin,
+    extraversion,
+    neuroticism,
+    conscientiousness,
     isUpdating,
     setAsDefaultBrainHandler,
     isSettingAsDefault,

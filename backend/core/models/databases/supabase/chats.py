@@ -29,6 +29,17 @@ class Chats(Repository):
 
         return reponse
 
+    def get_brain_history(self, brain_id: str):
+        reponse = (
+            self.db.from_("chat_history")
+            .select("*")
+            .filter("brain_id", "eq", brain_id)
+            .order("message_time", desc=False)  # Add the ORDER BY clause
+            .execute()
+        )
+
+        return reponse
+
     def get_user_chats(self, user_id: str):
         response = (
             self.db.from_("chats")
@@ -38,12 +49,13 @@ class Chats(Repository):
         )
         return response
 
-    def update_chat_history(self, chat_id: str, user_message: str, assistant: str):
+    def update_chat_history(self, chat_id: str, brain_id: str, user_message: str, assistant: str):
         response = (
             self.db.table("chat_history")
             .insert(
                 {
                     "chat_id": str(chat_id),
+                    "brain_id": str(brain_id),
                     "user_message": user_message,
                     "assistant": assistant,
                 }

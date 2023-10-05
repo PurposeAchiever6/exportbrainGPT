@@ -95,6 +95,12 @@ class Repository(ABC):
         pass
 
     @abstractmethod
+    def get_brain_data_by_brain_id_and_data_sha1(
+        self, brain_id: UUID, data_sha1: str
+    ):
+        pass
+
+    @abstractmethod
     def create_subscription_invitation(
         self, brain_id: UUID, user_email: str, rights: str
     ):
@@ -216,4 +222,9 @@ class Repository(ABC):
 
     @abstractmethod
     def get_public_prompts(self):
+        pass
+
+    # Qdrant
+    @abstractmethod
+    def get_payloads_data_sha1(self, data_sha1:str):
         pass

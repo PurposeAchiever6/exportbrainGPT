@@ -28,7 +28,7 @@ export const ConfigModal = ({ chatId }: { chatId?: string }): JSX.Element => {
       Trigger={
         <Button
           className="p-2 sm:px-3"
-          variant={"tertiary"}
+          // variant={"tertiary"}
           data-testid="config-button"
         >
           <MdSettings className="text-lg sm:text-xl lg:text-2xl" />

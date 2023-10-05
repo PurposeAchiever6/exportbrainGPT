@@ -19,10 +19,39 @@ from routes.prompt_routes import prompt_router
 from routes.subscription_routes import subscription_router
 from routes.upload_routes import upload_router
 from routes.user_routes import user_router
+from routes.personality_routes import personality_router
 
 import uvicorn
 
 logger = get_logger(__name__)
+
+
+# ## GPTCache
+# from gptcache import Cache
+# from gptcache.manager.factory import manager_factory
+# from gptcache.adapter.api import init_similar_cache
+# from gptcache.processor.pre import get_prompt
+# from langchain.cache import GPTCache
+# import hashlib
+# import langchain
+# import time
+# from langchain.llms import OpenAI
+# from gptcache.adapter.langchain_models import LangChainLLMs
+
+
+# def get_hashed_name(name):
+#     return hashlib.sha256(name.encode()).hexdigest()
+
+
+# def init_gptcache(cache_obj: Cache, llm: str):
+#     hashed_llm = get_hashed_name(llm)
+#     # init_similar_cache(cache_obj=cache_obj, data_dir=f"similar_cache_{hashed_llm}")
+#     cache_obj.init(
+#         pre_embedding_func=get_prompt,
+#         data_manager=manager_factory()
+#     )
+
+# langchain.llm_cache = GPTCache(init_gptcache)
 
 sentry_dsn = os.getenv("SENTRY_DSN")
 if sentry_dsn:
@@ -52,6 +81,7 @@ app.include_router(user_router)
 app.include_router(api_key_router)
 app.include_router(subscription_router)
 app.include_router(prompt_router)
+app.include_router(personality_router)
 
 
 @app.exception_handler(HTTPException)

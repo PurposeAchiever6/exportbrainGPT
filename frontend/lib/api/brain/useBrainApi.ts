@@ -1,14 +1,19 @@
+import { Answer } from "@/lib/context/BrainProvider/types";
 import { useAxios } from "@/lib/hooks";
 
 import {
   addBrainSubscriptions,
   createBrain,
   deleteBrain,
+  endPersonalTest,
   getBrain,
   getBrainDocuments,
   getBrains,
+  getBrainsFromChat,
   getBrainUsers,
   getDefaultBrain,
+  getLinkedinScraping,
+  getQuestions,
   setAsDefaultBrain,
   Subscription,
   updateBrain,
@@ -33,6 +38,11 @@ export const useBrainApi = () => {
     getDefaultBrain: async () => getDefaultBrain(axiosInstance),
     getBrains: async () => getBrains(axiosInstance),
     getBrain: async (id: string) => getBrain(id, axiosInstance),
+    getBrainsFromChat: async (question: string) => getBrainsFromChat(question, axiosInstance),
+    getLinkedinScraping: async (id: string) => getLinkedinScraping(id, axiosInstance),
+    getQuestions: async (num: number) => getQuestions(num, axiosInstance),
+    endPersonalTest: async (answers: Answer[]) =>
+      endPersonalTest(answers, axiosInstance),
     addBrainSubscriptions: async (
       brainId: string,
       subscriptions: Subscription[]

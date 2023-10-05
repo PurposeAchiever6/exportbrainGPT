@@ -3,9 +3,12 @@ from uuid import UUID
 
 from logger import get_logger
 from models.databases.supabase.supabase import SupabaseDB
-from models.settings import BrainRateLimiting, get_supabase_client, get_supabase_db
+from models.databases.qdrant.qdrant import QdrantDB
+from models.settings import BrainRateLimiting, get_supabase_client, get_supabase_db, get_qdrant_client, get_qdrant_db
 from pydantic import BaseModel
 from supabase.client import Client
+from qdrant_client import QdrantClient
+
 from utils.vectors import get_unique_files_from_vector_ids
 
 logger = get_logger(__name__)
@@ -21,6 +24,7 @@ class Brain(BaseModel):
     max_tokens: Optional[int] = 256
     openai_api_key: Optional[str] = None
     files: List[Any] = []
+    datas: List[Any] = []
     max_brain_size = BrainRateLimiting().max_brain_size
     prompt_id: Optional[UUID] = None
 
@@ -34,6 +38,14 @@ class Brain(BaseModel):
     @property
     def supabase_db(self) -> SupabaseDB:
         return get_supabase_db()
+
+    @property
+    def qdrant_client(self) -> QdrantClient:
+        return get_qdrant_client()
+
+    @property
+    def qdrant_db(self) -> QdrantDB:
+        return get_qdrant_db()
 
     @property
     def brain_size(self):
@@ -90,8 +102,13 @@ class Brain(BaseModel):
             self.supabase_db.delete_brain_user(self.id)
             self.supabase_db.delete_brain(self.id)
 
+            self.qdrant_db.delete_all_vectors_from_brain(self.id)
+
     def create_brain_vector(self, vector_id, file_sha1):
         return self.supabase_db.create_brain_vector(self.id, vector_id, file_sha1)
+
+    def create_brain_data(self, data_sha1:str, meatdata=None):
+        return self.supabase_db.create_brain_data(self.id, data_sha1, meatdata) 
 
     def get_vector_ids_from_file_sha1(self, file_sha1: str):
         return self.supabase_db.get_vector_ids_from_file_sha1(file_sha1)
@@ -111,6 +128,47 @@ class Brain(BaseModel):
         self.files = get_unique_files_from_vector_ids(vector_ids)
 
         return self.files
+    
+    def get_unique_brain_datas(self):
+        """
+        Retrieve unique brain data (i.e. uploaded files and crawled websites).
+        """
+
+        metadatas = self.supabase_db.get_brain_metadatas(self.id)
+        self.datas = [{
+            'name': metadata['data_name'],
+            'size': metadata['data_size'],
+            'sha1': metadata['data_sha1'],
+        } for metadata in metadatas]
+        # self.files = get_unique_files_from_vector_ids(vector_ids)
+
+        return self.datas
 
     def delete_file_from_brain(self, file_name: str):
         return self.supabase_db.delete_file_from_brain(self.id, file_name)
+    
+    def delete_data_from_brain(self, data_sha1: str):
+        self.supabase_db.delete_data_from_brain(self.id, data_sha1)
+        # associated_brains_response = (
+        #     self.supabase_client.table("brains_data")
+        #     .select("brain_id")
+        #     .filter("data_sha1", "eq", data_sha1)
+        #     .execute()
+        # )
+        # associated_brains = [
+        #     item["brain_id"] for item in associated_brains_response.data
+        # ]
+        # if not associated_brains:
+        self.qdrant_db.delete_vectors_from_brain(self.id, data_sha1)
+
+
+class Personality:
+    extraversion: int = 0
+    neuroticism: int = 0
+    conscientiousness: int = 0
+
+    def __init__(self, extraversion, neuroticism, conscientiousness) -> None:
+        self.extraversion = extraversion
+        self.neuroticism = neuroticism
+        self.conscientiousness = conscientiousness
+

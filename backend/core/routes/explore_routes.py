@@ -22,10 +22,10 @@ async def explore_endpoint(
     Retrieve and explore unique user data vectors.
     """
     brain = Brain(id=brain_id)
-    unique_data = brain.get_unique_brain_files()
+    datas = brain.get_unique_brain_datas()
 
-    unique_data.sort(key=lambda x: int(x["size"]), reverse=True)
-    return {"documents": unique_data}
+    # unique_data.sort(key=lambda x: int(x["size"]), reverse=True)
+    return {"documents": datas}
 
 
 @explore_router.delete(
@@ -50,6 +50,26 @@ async def delete_endpoint(
     return {
         "message": f"{file_name} of brain {brain_id} has been deleted by user {current_user.email}."
     }
+
+
+@explore_router.delete(
+    "/explore/data/{data_sha1}/",
+    dependencies=[
+        Depends(AuthBearer()),
+        Depends(has_brain_authorization(RoleEnum.Owner)),
+    ],
+    tags=["Explore"],
+)
+async def delete_data_endpoint(
+    data_sha1: str,
+    current_user: User = Depends(get_current_user),
+    brain_id: UUID = Query(..., description="The ID of the brain"),
+):
+    """
+    Delete a specific data by data_sha1.
+    """
+    brain = Brain(id=brain_id)
+    brain.delete_data_from_brain(data_sha1)
 
 
 @explore_router.get(

@@ -11,6 +11,7 @@ unstructured==0.6.5
 anthropic==0.2.8
 fastapi==0.95.2
 python-multipart==0.0.6
+python-dotenv>=1.0.0
 uvicorn==0.22.0
 pypandoc==1.11
 docx2txt==0.8
@@ -27,3 +28,6 @@ pyright==1.1.316
 resend==0.5.1
 psycopg2-binary==2.9.6
 sqlalchemy==2.0.18
+qdrant-client==1.4.0
+httpx==0.23.3
+beautifulsoup4==4.12.2

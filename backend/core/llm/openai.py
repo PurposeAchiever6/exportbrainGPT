@@ -2,6 +2,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.llms.base import BaseLLM
 from llm.qa_base import QABaseBrainPicking
+from models.brains import Personality
 from logger import get_logger
 
 logger = get_logger(__name__)
@@ -24,6 +25,8 @@ class OpenAIBrainPicking(QABaseBrainPicking):
         chat_id: str,
         max_tokens: int,
         user_openai_api_key: str,
+        personality: Personality = None,
+        memory = None,
         streaming: bool = False,
     ) -> "OpenAIBrainPicking":  # pyright: ignore reportPrivateUsage=none
         """
@@ -37,6 +40,8 @@ class OpenAIBrainPicking(QABaseBrainPicking):
             max_tokens=max_tokens,
             temperature=temperature,
             user_openai_api_key=user_openai_api_key,
+            personality=personality,
+            memory=memory,
             streaming=streaming,
         )
 

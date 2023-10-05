@@ -2,17 +2,21 @@ import os
 import time
 from typing import List
 from uuid import UUID
+from uuid import uuid4
 from venv import logger
 
+from qdrant_client import models, QdrantClient
+from sentence_transformers import SentenceTransformer
+from langchain.memory import ZepMemory
 from auth import AuthBearer, get_current_user
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from llm.openai import OpenAIBrainPicking
-from models.brains import Brain
+from models.brains import Brain, Personality
 from models.chat import Chat, ChatHistory
 from models.chats import ChatQuestion
 from models.databases.supabase.supabase import SupabaseDB
-from models.settings import LLMSettings, get_supabase_db
+from models.settings import LLMSettings, DatabaseSettings, get_supabase_db, get_qdrant_db
 from models.users import User
 from repository.brain.get_brain_details import get_brain_details
 from repository.brain.get_default_user_brain_or_create_new import (
@@ -21,9 +25,21 @@ from repository.brain.get_default_user_brain_or_create_new import (
 from repository.chat.create_chat import CreateChatProperties, create_chat
 from repository.chat.get_chat_by_id import get_chat_by_id
 from repository.chat.get_chat_history import get_chat_history
+from repository.chat.get_brain_history import get_brain_history
 from repository.chat.get_user_chats import get_user_chats
 from repository.chat.update_chat import ChatUpdatableProperties, update_chat
 from repository.user_identity.get_user_identity import get_user_identity
+
+ZEP_API_URL = os.getenv("ZEP_API_URL")
+print("----------------------------------------------------------------------------------------", ZEP_API_URL)
+
+session_id = str(uuid4())
+memory = ZepMemory(
+    session_id=session_id,
+    url=ZEP_API_URL,
+    memory_key="chat_history",
+    return_messages=True
+)
 
 chat_router = APIRouter()
 
@@ -192,6 +208,8 @@ async def create_question_handler(
 
         if not brain_id:
             brain_id = get_default_user_brain_or_create_new(current_user).brain_id
+        
+        personality = Personality(extraversion=brain_details.extraversion, neuroticism=brain_details.neuroticism, conscientiousness=brain_details.conscientiousness)
 
         gpt_answer_generator = OpenAIBrainPicking(
             chat_id=str(chat_id),
@@ -199,6 +217,8 @@ async def create_question_handler(
             max_tokens=chat_question.max_tokens,
             temperature=chat_question.temperature,
             brain_id=str(brain_id),
+            personality=personality,
+            memory=memory,
             user_openai_api_key=current_user.user_openai_api_key,  # pyright: ignore reportPrivateUsage=none
         )
 
@@ -258,6 +278,14 @@ async def create_stream_question_handler(
         chat_question.temperature = chat_question.temperature or brain.temperature or 0
         chat_question.max_tokens = chat_question.max_tokens or brain.max_tokens or 256
 
+    personality = None
+    if (
+        brain_details.extraversion is not None
+        and brain_details.neuroticism is not None
+        and brain_details.conscientiousness is not None
+    ):
+        personality = Personality(extraversion=brain_details.extraversion, neuroticism=brain_details.neuroticism, conscientiousness=brain_details.conscientiousness)
+
     try:
         logger.info(f"Streaming request for {chat_question.model}")
         check_user_limit(current_user)
@@ -271,12 +299,85 @@ async def create_stream_question_handler(
             temperature=chat_question.temperature,
             brain_id=str(brain_id),
             user_openai_api_key=current_user.user_openai_api_key,  # pyright: ignore reportPrivateUsage=none
+            personality=personality,
             streaming=True,
         )
 
         print("streaming")
         return StreamingResponse(
             gpt_answer_generator.generate_stream(  # pyright: ignore reportPrivateUsage=none
+                chat_question.question,
+                memory=memory
+            ),
+            media_type="text/event-stream",
+        )
+
+    except HTTPException as e:
+        raise e
+
+# stream new question response to brain
+@chat_router.post(
+    "/chat/brain/{brain_id}/question/stream",
+    dependencies=[
+        Depends(
+            AuthBearer(),
+        ),
+    ],
+    tags=["Chat"],
+)
+async def create_brain_stream_question_handler(
+    request: Request,
+    chat_question: ChatQuestion,
+    brain_id: UUID,
+    current_user: User = Depends(get_current_user),
+) -> StreamingResponse:
+    # TODO: check if the user has access to the brain
+
+    # Retrieve user's OpenAI API key
+    current_user.user_openai_api_key = request.headers.get("Openai-Api-Key")
+    brain = Brain(id=brain_id)
+
+    # if not current_user.user_openai_api_key and brain_id:
+    #     brain_details = get_brain_details(brain_id)
+    #     if brain_details:
+    #         current_user.user_openai_api_key = brain_details.openai_api_key
+
+    # if not current_user.user_openai_api_key:
+    #     user_identity = get_user_identity(current_user.id)
+
+    #     if user_identity is not None:
+    #         current_user.user_openai_api_key = user_identity.openai_api_key
+
+    # # Retrieve chat model (temperature, max_tokens, model)
+    # if (
+    #     not chat_question.model
+    #     or not chat_question.temperature
+    #     or not chat_question.max_tokens
+    # ):
+    #     # TODO: create ChatConfig class (pick config from brain or user or chat) and use it here
+    #     chat_question.model = chat_question.model or brain.model or "gpt-3.5-turbo-0613"
+    #     chat_question.temperature = chat_question.temperature or brain.temperature or 0
+    #     chat_question.max_tokens = chat_question.max_tokens or brain.max_tokens or 256
+
+    try:
+        logger.info(f"Streaming request for {chat_question.model}")
+        # check_user_limit(current_user)
+        # if not brain_id:
+        #     brain_id = get_default_user_brain_or_create_new(current_user).brain_id
+
+        gpt_answer_generator = OpenAIBrainPicking(
+            chat_id=None,
+            model=brain.model,
+            max_tokens=brain.max_tokens,
+            temperature=brain.temperature,
+            brain_id=str(brain_id),
+            user_openai_api_key=current_user.user_openai_api_key,  # pyright: ignore reportPrivateUsage=none
+            streaming=True,
+        )
+
+        print("streaming")
+        return StreamingResponse(
+            gpt_answer_generator.generate_brain_stream(  # pyright: ignore reportPrivateUsage=none
                 chat_question.question
             ),
             media_type="text/event-stream",
@@ -295,3 +396,34 @@ async def get_chat_history_handler(
 ) -> List[ChatHistory]:
     # TODO: RBAC with current_user
     return get_chat_history(chat_id)  # pyright: ignore reportPrivateUsage=none
+
+# get brain history
+@chat_router.get(
+    "/chat/{brain_id}/brain_history", dependencies=[Depends(AuthBearer())], tags=["Chat"]
+)
+async def get_brain_history_handler(
+    brain_id: UUID,
+) -> List[ChatHistory]:
+    # TODO: RBAC with current_user
+    return get_brain_history(brain_id)  # pyright: ignore reportPrivateUsage=none
+
+# choose nearest experts
+@chat_router.post(
+    "/chat/choose",
+    dependencies=[
+        Depends(
+            AuthBearer(),
+        ),
+    ],
+    tags=["Chat"],
+)
+async def choose_nearest_experts(
+    chat_question: ChatQuestion  
+) -> []:
+    query = chat_question.question
+    qdrant_db = get_qdrant_db()
+    brain_id_scores = qdrant_db.get_nearest_brain_list(query=query, limit=5)
+    print(brain_id_scores)
+
+    recommended_brains = [{'name': get_brain_details(brain_score['brain_id']).name, **brain_score} for brain_score in brain_id_scores]
+    return recommended_brains

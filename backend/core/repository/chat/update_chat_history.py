@@ -5,10 +5,10 @@ from models.chat import ChatHistory
 from models.settings import get_supabase_db
 
 
-def update_chat_history(chat_id: str, user_message: str, assistant: str) -> ChatHistory:
+def update_chat_history(chat_id: str, brain_id: str, user_message: str, assistant: str) -> ChatHistory:
     supabase_db = get_supabase_db()
     response: List[ChatHistory] = (
-        supabase_db.update_chat_history(chat_id, user_message, assistant)
+        supabase_db.update_chat_history(chat_id, brain_id, user_message, assistant)
     ).data
     if len(response) == 0:
         raise HTTPException(

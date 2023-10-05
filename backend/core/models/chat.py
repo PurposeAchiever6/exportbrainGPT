@@ -26,6 +26,7 @@ class Chat:
 @dataclass
 class ChatHistory:
     chat_id: str
+    brain_id: str
     message_id: str
     user_message: str
     assistant: str
@@ -34,6 +35,9 @@ class ChatHistory:
     def __init__(self, chat_dict: dict):
         self.chat_id = chat_dict.get(
             "chat_id"
+        )  # pyright: ignore reportPrivateUsage=none
+        self.brain_id = chat_dict.get(
+            "brain_id"
         )  # pyright: ignore reportPrivateUsage=none
         self.message_id = chat_dict.get(
             "message_id"
