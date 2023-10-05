@@ -8,6 +8,7 @@ from langchain.llms.base import BaseLLM
 from langchain.callbacks.streaming_aiter import AsyncIteratorCallbackHandler
 from logger import get_logger
 from models.chat import ChatHistory
+from models.brains import Personality
 from repository.chat.format_chat_history import format_chat_history
 from repository.chat.get_chat_history import get_chat_history
 from repository.chat.get_brain_history import get_brain_history
@@ -19,6 +20,7 @@ import json
 
 from .base import BaseBrainPicking
 from .prompts.CONDENSE_PROMPT import CONDENSE_QUESTION_PROMPT
+from .prompts.LANGUAGE_PROMPT import qa_prompt
 
 logger = get_logger(__name__)
 
@@ -34,6 +36,7 @@ class QABaseBrainPicking(BaseBrainPicking):
         model: str,
         brain_id: str,
         chat_id: str,
+        personality: Personality = None,
         streaming: bool = False,
         **kwargs,
     ) -> "QABaseBrainPicking":  # pyright: ignore reportPrivateUsage=none
@@ -45,6 +48,7 @@ class QABaseBrainPicking(BaseBrainPicking):
             model=model,
             brain_id=brain_id,
             chat_id=chat_id,
+            personality=personality,
             streaming=streaming,
             **kwargs,
         )
@@ -186,8 +190,9 @@ class QABaseBrainPicking(BaseBrainPicking):
         # The Chain that generates the standalone question
         standalone_question_generator = LLMChain(llm=standalone_question_llm, prompt=CONDENSE_QUESTION_PROMPT)
 
+        QA_PROMPT = qa_prompt(personality=self.personality)
         # The Chain that generates the answer to the question
-        doc_chain = load_qa_chain(answering_llm, chain_type="stuff")
+        doc_chain = load_qa_chain(answering_llm, chain_type="stuff", prompt=QA_PROMPT)
 
         # The Chain that combines the question and answer
         qa = ConversationalRetrievalChain(

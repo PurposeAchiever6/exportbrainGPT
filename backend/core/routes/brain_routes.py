@@ -17,6 +17,7 @@ from repository.brain.get_default_user_brain_or_create_new import (
     get_default_user_brain_or_create_new,
 )
 from repository.brain.get_user_brains import get_user_brains
+from repository.brain.get_all_brains import get_all_brains
 from repository.brain.set_as_default_brain_for_user import (
     set_as_default_brain_for_user,
 )
@@ -46,7 +47,8 @@ async def brain_endpoint(current_user: User = Depends(get_current_user)):
     This endpoint retrieves all the brains associated with the current authenticated user. It returns a list of brains objects
     containing the brain ID and brain name for each brain.
     """
-    brains = get_user_brains(current_user.id)
+    # brains = get_user_brains(current_user.id)
+    brains = get_all_brains()
     return {"brains": brains}
 
 
@@ -71,7 +73,7 @@ async def get_default_brain_endpoint(current_user: User = Depends(get_current_us
 
 @brain_router.get(
     "/brains/{brain_id}/",
-    dependencies=[Depends(AuthBearer()), Depends(has_brain_authorization())],
+    dependencies=[Depends(AuthBearer())], # , Depends(has_brain_authorization())
     tags=["Brain"],
 )
 async def get_brain_endpoint(
@@ -110,6 +112,9 @@ async def create_brain_endpoint(
         model
         max_tokens
         temperature
+        extraversion
+        neuroticism
+        conscientiousness
     In the brains table & in the brains_users table and put the creator user as 'Owner'
     """
 

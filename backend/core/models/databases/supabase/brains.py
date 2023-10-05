@@ -18,6 +18,9 @@ class CreateBrainProperties(BaseModel):
     max_tokens: Optional[int] = 256
     openai_api_key: Optional[str] = None
     prompt_id: Optional[UUID] = None
+    extraversion: Optional[int] = None
+    neuroticism: Optional[int] = None
+    conscientiousness: Optional[int] = None
 
     def dict(self, *args, **kwargs):
         brain_dict = super().dict(*args, **kwargs)
@@ -56,6 +59,24 @@ class Brain(Repository):
             self.db.from_("brains_users")
             .select("id:brain_id, rights, brains (id: brain_id, name)")
             .filter("user_id", "eq", user_id)
+            .execute()
+        )
+        user_brains: list[MinimalBrainEntity] = []
+        for item in response.data:
+            user_brains.append(
+                MinimalBrainEntity(
+                    id=item["brains"]["id"],
+                    name=item["brains"]["name"],
+                    rights=item["rights"],
+                )
+            )
+            user_brains[-1].rights = item["rights"]
+        return user_brains
+
+    def get_all_brains(self) -> list[MinimalBrainEntity]:
+        response = (
+            self.db.from_("brains_users")
+            .select("id:brain_id, rights, brains (id: brain_id, name)")
             .execute()
         )
         user_brains: list[MinimalBrainEntity] = []

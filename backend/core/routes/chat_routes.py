@@ -8,7 +8,7 @@ from auth import AuthBearer, get_current_user
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from llm.openai import OpenAIBrainPicking
-from models.brains import Brain
+from models.brains import Brain, Personality
 from models.chat import Chat, ChatHistory
 from models.chats import ChatQuestion
 from models.databases.supabase.supabase import SupabaseDB
@@ -259,6 +259,14 @@ async def create_stream_question_handler(
         chat_question.temperature = chat_question.temperature or brain.temperature or 0
         chat_question.max_tokens = chat_question.max_tokens or brain.max_tokens or 256
 
+    personality = None
+    if (
+        brain_details.extraversion is not None
+        and brain_details.neuroticism is not None
+        and brain_details.conscientiousness is not None
+    ):
+        personality = Personality(extraversion=brain_details.extraversion, neuroticism=brain_details.neuroticism, conscientiousness=brain_details.conscientiousness)
+
     try:
         logger.info(f"Streaming request for {chat_question.model}")
         check_user_limit(current_user)
@@ -272,6 +280,7 @@ async def create_stream_question_handler(
             temperature=chat_question.temperature,
             brain_id=str(brain_id),
             user_openai_api_key=current_user.user_openai_api_key,  # pyright: ignore reportPrivateUsage=none
+            personality=personality,
             streaming=True,
         )
 

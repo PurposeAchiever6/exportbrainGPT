@@ -6,6 +6,7 @@ from langchain.chains import ConversationalRetrievalChain, LLMChain
 from langchain.llms.base import LLM
 from logger import get_logger
 from models.settings import BrainSettings  # Importing settings related to the 'brain'
+from models.brains import Personality
 from pydantic import BaseModel  # For data validation and settings management
 
 logger = get_logger(__name__)
@@ -27,6 +28,7 @@ class BaseBrainPicking(BaseModel):
     brain_id: str = None  # pyright: ignore reportPrivateUsage=none
     max_tokens: int = 256
     user_openai_api_key: str = None  # pyright: ignore reportPrivateUsage=none
+    personality: Personality = None
     streaming: bool = False
 
     openai_api_key: str = None  # pyright: ignore reportPrivateUsage=none

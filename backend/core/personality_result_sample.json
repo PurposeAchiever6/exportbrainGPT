@@ -1,1 +1,62 @@
-[{"trait": "Extraversion", "positive": true, "question": "Do you frequently enjoy social activities?", "answer": 4}, {"trait": "Extraversion", "positive": true, "question": "Do you prefer to work in teams?", "answer": 3}, {"trait": "Neuroticism", "positive": true, "question": "Do you often feel anxious in unfamiliar situations?", "answer": 1}, {"trait": "Neuroticism", "positive": false, "question": "Do you often feel relaxed and content?", "answer": 1}, {"trait": "Neuroticism", "positive": true, "question": "Are you easily overwhelmed by emotions?", "answer": 3}, {"trait": "Neuroticism", "positive": false, "question": "Do you generally remain composed in stressful situations?", "answer": 1}, {"trait": "Conscientiousness", "positive": true, "question": "Do you take responsibility for your actions?", "answer": 4}, {"trait": "Conscientiousness", "positive": false, "question": "Do you shirk from your responsibilities?", "answer": 1}, {"trait": "Conscientiousness", "positive": true, "question": "Do you always strive to do your best?", "answer": 3}, {"trait": "Conscientiousness", "positive": false, "question": "Do you often do the bare minimum?", "answer": 2}]
+[
+  {
+    "trait": "Extraversion",
+    "positive": true,
+    "question": "Do you frequently enjoy social activities?",
+    "answer": 4
+  },
+  {
+    "trait": "Extraversion",
+    "positive": true,
+    "question": "Do you prefer to work in teams?",
+    "answer": 3
+  },
+  {
+    "trait": "Neuroticism",
+    "positive": true,
+    "question": "Do you often feel anxious in unfamiliar situations?",
+    "answer": 1
+  },
+  {
+    "trait": "Neuroticism",
+    "positive": false,
+    "question": "Do you often feel relaxed and content?",
+    "answer": 1
+  },
+  {
+    "trait": "Neuroticism",
+    "positive": true,
+    "question": "Are you easily overwhelmed by emotions?",
+    "answer": 3
+  },
+  {
+    "trait": "Neuroticism",
+    "positive": false,
+    "question": "Do you generally remain composed in stressful situations?",
+    "answer": 1
+  },
+  {
+    "trait": "Conscientiousness",
+    "positive": true,
+    "question": "Do you take responsibility for your actions?",
+    "answer": 4
+  },
+  {
+    "trait": "Conscientiousness",
+    "positive": false,
+    "question": "Do you shirk from your responsibilities?",
+    "answer": 1
+  },
+  {
+    "trait": "Conscientiousness",
+    "positive": true,
+    "question": "Do you always strive to do your best?",
+    "answer": 3
+  },
+  {
+    "trait": "Conscientiousness",
+    "positive": false,
+    "question": "Do you often do the bare minimum?",
+    "answer": 2
+  }
+]

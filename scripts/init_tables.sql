@@ -1,3 +1,18 @@
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS chats;
+DROP TABLE IF EXISTS vectors;
+DROP TABLE IF EXISTS stats;
+DROP TABLE IF EXISTS summaries;
+DROP TABLE IF EXISTS api_keys;
+DROP TABLE IF EXISTS promps;
+DROP TABLE IF EXISTS brains;
+DROP TABLE IF EXISTS chat_history;
+DROP TABLE IF EXISTS brains_users;
+DROP TABLE IF EXISTS brains_vectors;
+DROP TABLE IF EXISTS brain_subscription_invitations;
+DROP TABLE IF EXISTS user_identity;
+DROP TABLE IF EXISTS migrations;
+
 -- Create users table
 CREATE TABLE IF NOT EXISTS users(
     user_id UUID REFERENCES auth.users (id),
@@ -28,6 +43,7 @@ CREATE TABLE IF NOT EXISTS vectors (
 );
 
 -- Create function to match vectors
+-- DROP FUNCTION IF EXISTS match_vectors;
 CREATE OR REPLACE FUNCTION match_vectors(query_embedding VECTOR(1536), match_count INT, p_brain_id UUID)
 RETURNS TABLE(
     id UUID,
@@ -207,7 +223,6 @@ BEGIN
   RETURN QUERY SELECT au.id::uuid FROM auth.users au WHERE au.email = user_email;
 END;
 $$ LANGUAGE plpgsql;
-
 
 
 CREATE TABLE IF NOT EXISTS migrations (

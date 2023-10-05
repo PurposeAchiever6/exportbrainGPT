@@ -114,3 +114,15 @@ class Brain(BaseModel):
 
     def delete_file_from_brain(self, file_name: str):
         return self.supabase_db.delete_file_from_brain(self.id, file_name)
+
+
+class Personality:
+    extraversion: int = 0
+    neuroticism: int = 0
+    conscientiousness: int = 0
+
+    def __init__(self, extraversion, neuroticism, conscientiousness) -> None:
+        self.extraversion = extraversion
+        self.neuroticism = neuroticism
+        self.conscientiousness = conscientiousness
+
