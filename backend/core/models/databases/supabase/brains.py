@@ -243,6 +243,25 @@ class Brain(Repository):
 
         return vector_ids
 
+    def get_brain_metadatas(self, brain_id):
+        """
+        Retrieve unique brain data (i.e. uploaded files and crawled websites).
+        """
+
+        response = (
+            self.db.from_("brains_data")
+            .select("metadata")
+            .filter("brain_id", "eq", brain_id)
+            .execute()
+        )
+
+        datas= [item["metadata"] for item in response.data]
+
+        if len(datas) == 0:
+            return []
+
+        return datas
+
     def delete_file_from_brain(self, brain_id, file_name: str):
         # First, get the vector_ids associated with the file_name
         vector_response = (

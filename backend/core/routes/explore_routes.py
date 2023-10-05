@@ -22,10 +22,10 @@ async def explore_endpoint(
     Retrieve and explore unique user data vectors.
     """
     brain = Brain(id=brain_id)
-    unique_data = brain.get_unique_brain_files()
+    datas = brain.get_unique_brain_datas()
 
-    unique_data.sort(key=lambda x: int(x["size"]), reverse=True)
-    return {"documents": unique_data}
+    # unique_data.sort(key=lambda x: int(x["size"]), reverse=True)
+    return {"documents": datas}
 
 
 @explore_router.delete(

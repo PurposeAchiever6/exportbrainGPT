@@ -24,6 +24,7 @@ class Brain(BaseModel):
     max_tokens: Optional[int] = 256
     openai_api_key: Optional[str] = None
     files: List[Any] = []
+    datas: List[Any] = []
     max_brain_size = BrainRateLimiting().max_brain_size
     prompt_id: Optional[UUID] = None
 
@@ -125,6 +126,16 @@ class Brain(BaseModel):
         self.files = get_unique_files_from_vector_ids(vector_ids)
 
         return self.files
+    
+    def get_unique_brain_datas(self):
+        """
+        Retrieve unique brain data (i.e. uploaded files and crawled websites).
+        """
+
+        self.datas = self.supabase_db.get_brain_metadatas(self.id)
+        # self.files = get_unique_files_from_vector_ids(vector_ids)
+
+        return self.datas
 
     def delete_file_from_brain(self, file_name: str):
         return self.supabase_db.delete_file_from_brain(self.id, file_name)

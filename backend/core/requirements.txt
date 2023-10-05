@@ -28,3 +28,6 @@ pyright==1.1.316
 resend==0.5.1
 psycopg2-binary==2.9.6
 sqlalchemy==2.0.18
+qdrant-client==1.4.0
+httpx==0.23.3
+beautifulsoup4==4.12.2

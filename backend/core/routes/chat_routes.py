@@ -31,6 +31,7 @@ from repository.chat.update_chat import ChatUpdatableProperties, update_chat
 from repository.user_identity.get_user_identity import get_user_identity
 
 ZEP_API_URL = os.getenv("ZEP_API_URL")
+print("----------------------------------------------------------------------------------------", ZEP_API_URL)
 
 session_id = str(uuid4())
 memory = ZepMemory(

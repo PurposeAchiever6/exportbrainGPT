@@ -286,7 +286,20 @@ if __name__ == "__main__":
     #     'conscientiousness': 0
     #     }
     # ]
-    
+    # expert = {
+    #     'name': 'Shakira Isabel',
+    #     'description': "Colombian singer and songwriter. Born and raised in Barranquilla, 'Queen of Latin Music'",
+    #     'model': 'gpt-3.5-turbo-0613',
+    #     'max_tokens': 256,
+    #     'openai_api_key': os.getenv('OPENAI_API_KEY'),
+    #     'temperature': '0.9',
+    #     'prompt_id': None,
+    #     'linkedin': "https://co.linkedin.com/in/shakira-isabel-mebarak-960b4b26b",
+    #     'extraversion': 3,
+    #     'neuroticism': 1,
+    #     'conscientiousness': 1
+    #     }
+    # test_post_brains(hongyu_token, expert)
     # for expert in experts:
     #     test_post_brains(hongyu_token, expert)
 
@@ -309,8 +322,8 @@ if __name__ == "__main__":
         "1e87cafa-9f6c-40f5-8d3f-0e8b7ef7488b",
         "2ca5281f-c8e4-44c0-bca0-f2bc23d22660"
     ]
-    # for brain_id in brain_ids:
-        # test_linkedin_scraping(token=hongyu_token, brain_id=brain_id)
+    # # for brain_id in brain_ids:
+    # test_linkedin_scraping(token=hongyu_token, brain_id="a8f77ae3-7aab-4ad0-a82c-dddaf1a29228")
 
     #################### Get all data ####################
 
@@ -357,6 +370,9 @@ if __name__ == "__main__":
     #################### Create Chat ####################
     # test_post_create_chat(token=hongyu_token, name="api test chat")
 
+    #################### new question response from chat ####################
+    test_post_chat(token=hongyu_token, chat_id="0b566e14-dc11-4c71-a4ac-34f0daf72970", brain_id=brain_ids[0], question="What is your favorate?")
+
     #################### stream new question response from chat ####################
-    test_post_chat_stream(token=hongyu_token, chat_id="0b566e14-dc11-4c71-a4ac-34f0daf72970", brain_id=brain_ids[0], question="What is your favorate?")
+    # test_post_chat_stream(token=hongyu_token, chat_id="0b566e14-dc11-4c71-a4ac-34f0daf72970", brain_id=brain_ids[0], question="What is your favorate?")
     
