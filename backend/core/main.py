@@ -19,6 +19,7 @@ from routes.prompt_routes import prompt_router
 from routes.subscription_routes import subscription_router
 from routes.upload_routes import upload_router
 from routes.user_routes import user_router
+from routes.personality_routes import personality_router
 
 import uvicorn
 
@@ -80,6 +81,7 @@ app.include_router(user_router)
 app.include_router(api_key_router)
 app.include_router(subscription_router)
 app.include_router(prompt_router)
+app.include_router(personality_router)
 
 
 @app.exception_handler(HTTPException)
