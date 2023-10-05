@@ -10,6 +10,7 @@ from logger import get_logger
 from models.chat import ChatHistory
 from repository.chat.format_chat_history import format_chat_history
 from repository.chat.get_chat_history import get_chat_history
+from repository.chat.get_brain_history import get_brain_history
 from repository.chat.update_chat_history import update_chat_history
 from supabase.client import Client, create_client
 from vectorstore.supabase import CustomSupabaseVectorStore
@@ -242,3 +243,83 @@ class QABaseBrainPicking(BaseBrainPicking):
             user_message=question,
             assistant=assistant,
         )
+
+    async def generate_brain_stream(self, question: str) -> AsyncIterable:
+        """
+        Generate a streaming answer to a given question by interacting with the language model.
+        :param question: The question
+        :return: An async iterable which generates the answer.
+        """
+        history = get_brain_history(self.brain_id)
+        callback = AsyncIteratorCallbackHandler()
+        self.callbacks = [callback]
+
+        # The Model used to answer the question with the context
+        answering_llm = self._create_llm(model=self.model, streaming=True, callbacks=self.callbacks,temperature=self.temperature)
+
+        
+        # The Model used to create the standalone Question
+        # Temperature = 0 means no randomness
+        standalone_question_llm = self._create_llm(model=self.model)
+
+        # The Chain that generates the standalone question
+        standalone_question_generator = LLMChain(llm=standalone_question_llm, prompt=CONDENSE_QUESTION_PROMPT)
+
+        # The Chain that generates the answer to the question
+        doc_chain = load_qa_chain(answering_llm, chain_type="stuff")
+
+        # The Chain that combines the question and answer
+        qa = ConversationalRetrievalChain(
+            retriever=self.vector_store.as_retriever(), combine_docs_chain=doc_chain, question_generator=standalone_question_generator)
+        
+        transformed_history = []
+
+        # Format the chat history into a list of tuples (human, ai)
+        transformed_history = format_chat_history(history)
+
+        # Initialize a list to hold the tokens
+        response_tokens = []
+
+        # Wrap an awaitable with a event to signal when it's done or an exception is raised.
+       
+        async def wrap_done(fn: Awaitable, event: asyncio.Event):
+            try:
+                await fn
+            except Exception as e:
+                logger.error(f"Caught exception: {e}")
+            finally:
+                event.set()
+        # Begin a task that runs in the background.
+        
+        run = asyncio.create_task(wrap_done(
+            qa.acall({"question": question, "chat_history": transformed_history}),
+            callback.done,
+        ))
+           
+        # streamed_chat_history = update_chat_history(
+        #     chat_id=self.chat_id,
+        #     brain_id=self.brain_id,
+        #     user_message=question,
+        #     assistant="",
+        # )
+
+        # Use the aiter method of the callback to stream the response with server-sent-events
+        async for token in callback.aiter():  # pyright: ignore reportPrivateUsage=none
+            logger.info("Token: %s", token)
+
+            # Add the token to the response_tokens list
+            response_tokens.append(token)
+            # streamed_chat_history.assistant = token
+
+            # yield f"data: {json.dumps(streamed_chat_history.to_dict())}"
+
+        await run
+        # Join the tokens to create the assistant's response
+        assistant = "".join(response_tokens)
+        yield assistant
+
+        # update_message_by_id(
+        #     message_id=streamed_chat_history.message_id,
+        #     user_message=question,
+        #     assistant=assistant,
+        # )
