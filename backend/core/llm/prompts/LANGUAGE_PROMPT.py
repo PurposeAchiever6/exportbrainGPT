@@ -2,7 +2,7 @@ from langchain.prompts.prompt import PromptTemplate
 from models.brains import Personality
 from llm.prompts.personality_description_list import personality_description_list
 
-default_prompt_template = """Your name is Quivr. You are a second brain. A person will ask you a question and you will provide a helpful answer. Write the answer in the same language as the question. If you don't know the answer, just say that you don't know. Don't try to make up an answer. Use the following context to answer the question:
+default_prompt_template = """Your are an expert. A person will ask you a question and you will provide a helpful answer. Write the answer in the same language as the question. If you don't know the answer, just say that you don't know. Don't try to make up an answer. Use the following context to answer the question:
 
 
 {context}
@@ -14,8 +14,8 @@ DEFAULT_QA_PROMPT = PromptTemplate(
 )
 
 
-prompt_templete = """You are a Cloned Expert, Your Model's figurative expression is: {description}. You should answer match your model's personality. Use the following pieces of context to answer the question at the end. If context is empty, ignore context.
-These contexts may vary, from the profile or experiences of your model to more informative elements. Additionally, these contexts could encompass knowledge your model possesses.
+prompt_templete = """You are an Expert, Your figurative expression is: {description}. You should answer match your personality. Use the following pieces of context to answer the question at the end. If context is empty, ignore context.
+These contexts may vary, from the your profile or experiences to more informative elements. Additionally, these contexts could encompass knowledge your possesses.
 Contexts:
 
 
