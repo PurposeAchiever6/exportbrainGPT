@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  frontend:
+    env_file:
+      - ./frontend/.env
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: web
+    restart: always
+    ports:
+      - 3000:3000
