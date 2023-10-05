@@ -218,6 +218,7 @@ class QABaseBrainPicking(BaseBrainPicking):
            
         streamed_chat_history = update_chat_history(
             chat_id=self.chat_id,
+            brain_id=self.brain_id,
             user_message=question,
             assistant="",
         )

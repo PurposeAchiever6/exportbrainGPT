@@ -21,6 +21,7 @@ from repository.brain.get_default_user_brain_or_create_new import (
 from repository.chat.create_chat import CreateChatProperties, create_chat
 from repository.chat.get_chat_by_id import get_chat_by_id
 from repository.chat.get_chat_history import get_chat_history
+from repository.chat.get_brain_history import get_brain_history
 from repository.chat.get_user_chats import get_user_chats
 from repository.chat.update_chat import ChatUpdatableProperties, update_chat
 from repository.user_identity.get_user_identity import get_user_identity
@@ -295,3 +296,13 @@ async def get_chat_history_handler(
 ) -> List[ChatHistory]:
     # TODO: RBAC with current_user
     return get_chat_history(chat_id)  # pyright: ignore reportPrivateUsage=none
+
+# get brain history
+@chat_router.get(
+    "/chat/{brain_id}/brain_history", dependencies=[Depends(AuthBearer())], tags=["Chat"]
+)
+async def get_brain_history_handler(
+    brain_id: UUID,
+) -> List[ChatHistory]:
+    # TODO: RBAC with current_user
+    return get_brain_history(brain_id)  # pyright: ignore reportPrivateUsage=none

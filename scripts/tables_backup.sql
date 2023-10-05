@@ -16,6 +16,16 @@ CREATE TABLE IF NOT EXISTS chats(
     chat_name TEXT
 );
 
+-- Create chat_history table
+CREATE TABLE IF NOT EXISTS chat_history (
+    message_id UUID DEFAULT uuid_generate_v4(),
+    chat_id UUID REFERENCES chats(chat_id),
+    user_message TEXT,
+    assistant TEXT,
+    message_time TIMESTAMP DEFAULT current_timestamp,
+    PRIMARY KEY (chat_id, message_id)
+);
+
 -- Create vector extension
 CREATE EXTENSION IF NOT EXISTS vector;
 
@@ -137,17 +147,6 @@ CREATE TABLE IF NOT EXISTS brains (
   prompt_id UUID REFERENCES prompts(id)
 );
 
-
--- Create chat_history table
-CREATE TABLE IF NOT EXISTS chat_history (
-    message_id UUID DEFAULT uuid_generate_v4(),
-    chat_id UUID REFERENCES chats(chat_id),
-    brain_id UUID REFERENCES brains(brain_id),
-    user_message TEXT,
-    assistant TEXT,
-    message_time TIMESTAMP DEFAULT current_timestamp,
-    PRIMARY KEY (chat_id, message_id)
-);
 
 -- Create brains X users table
 CREATE TABLE IF NOT EXISTS brains_users (

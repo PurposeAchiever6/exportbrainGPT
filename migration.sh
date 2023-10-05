@@ -38,7 +38,8 @@ if $prompt_for_db_info ; then
 fi
 
 # Ask user whether to create tables or run migrations
-CHOICE=$(gum choose --header "Choose an option" "Create all tables" "Run Migrations")
+# CHOICE=$(gum choose --header "Choose an option" "Create all tables" "Run Migrations")
+CHOICE="Create all tables"
 
 if [ "$CHOICE" == "Create all tables" ]; then
     # Running the tables.sql file to create tables

@@ -24,6 +24,34 @@ import uvicorn
 
 logger = get_logger(__name__)
 
+
+# ## GPTCache
+# from gptcache import Cache
+# from gptcache.manager.factory import manager_factory
+# from gptcache.adapter.api import init_similar_cache
+# from gptcache.processor.pre import get_prompt
+# from langchain.cache import GPTCache
+# import hashlib
+# import langchain
+# import time
+# from langchain.llms import OpenAI
+# from gptcache.adapter.langchain_models import LangChainLLMs
+
+
+# def get_hashed_name(name):
+#     return hashlib.sha256(name.encode()).hexdigest()
+
+
+# def init_gptcache(cache_obj: Cache, llm: str):
+#     hashed_llm = get_hashed_name(llm)
+#     # init_similar_cache(cache_obj=cache_obj, data_dir=f"similar_cache_{hashed_llm}")
+#     cache_obj.init(
+#         pre_embedding_func=get_prompt,
+#         data_manager=manager_factory()
+#     )
+
+# langchain.llm_cache = GPTCache(init_gptcache)
+
 sentry_dsn = os.getenv("SENTRY_DSN")
 if sentry_dsn:
     sentry_sdk.init(

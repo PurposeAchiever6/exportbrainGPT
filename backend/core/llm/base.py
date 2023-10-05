@@ -22,7 +22,7 @@ class BaseBrainPicking(BaseModel):
 
     # Default class attributes
     model: str = None  # pyright: ignore reportPrivateUsage=none
-    temperature: float = 0.0
+    temperature: float = 0.5
     chat_id: str = None  # pyright: ignore reportPrivateUsage=none
     brain_id: str = None  # pyright: ignore reportPrivateUsage=none
     max_tokens: int = 256
