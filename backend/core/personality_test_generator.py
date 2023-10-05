@@ -8,7 +8,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")  # 'your-api-key'  # replace 'your-api-key' with your actual key
 
 responsiveness = ["Disagree Strongly", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Agree strongly"]
-traits = ['Extraversion', 'Neuroticism', 'Conscientiousness']
+traits = ['extraversion', 'neuroticism', 'conscientiousness']
 
 prompt_text_muliple = """Generate {question_number} question to evaluate "{trait}" in a personality test. 
 The options for the respondent are: 
@@ -35,7 +35,7 @@ Response: <response>
 """
 
 # Muliple questions
-def generate_question(trait='Extraversion', question_number:int=1):
+def generate_question(trait='extraversion', question_number:int=1):
     output_list = []
     # for i in range(2):  # change this to a higher number if more questions are desired for each trait
     
@@ -136,27 +136,27 @@ Give me python code.
 
 [
 {
-    "trait": "Extraversion"
+    "trait": "extraversion"
     "question": "I love being the center of attention."
 },
 {
-    "trait": "Neuroticism"
+    "trait": "neuroticism"
     "question": "I change my mood a lot."
 },
 {
-    "trait": "Conscientiousness"
+    "trait": "conscientiousness"
     "question": "I am exacting in my work."
 },
 {
-    "trait": "Extraversion"
+    "trait": "extraversion"
     "question": "I feel comfortable around people."
 },
 {
-    "trait": "Neuroticism"
+    "trait": "neuroticism"
     "question": "I often feel blue."
 },
 {
-    "trait": "Conscientiousness"
+    "trait": "conscientiousness"
     "question": "I am always prepared."
 }
 ]

@@ -13,6 +13,10 @@ export type CreateBrainInput = {
   max_tokens?: number;
   openai_api_key?: string;
   prompt_id?: string | null;
+  linkedin?: string | null;
+  conscientiousness?: number;
+  neuroticism?: number;
+  extraversion?: number;
 };
 
 export type UpdateBrainInput = Partial<CreateBrainInput>;

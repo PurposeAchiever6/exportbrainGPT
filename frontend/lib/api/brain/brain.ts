@@ -3,9 +3,13 @@ import { AxiosInstance } from "axios";
 
 import { BrainRoleType } from "@/lib/components/NavBar/components/NavItems/components/BrainsDropDown/components/BrainActions/types";
 import {
+  Answer,
   BackendMinimalBrainForUser,
   Brain,
+  BrainResult,
   MinimalBrainForUser,
+  Personality,
+  Question,
 } from "@/lib/context/BrainProvider/types";
 import { Document } from "@/lib/types/Document";
 
@@ -53,6 +57,17 @@ export const getBrain = async (
   return brain;
 };
 
+export const getQuestions = async (
+  num: number,
+  axiosInstance: AxiosInstance
+) : Promise<Question[] | undefined> => {
+  const questions = (
+    await axiosInstance.get<Question[] | undefined>(`/personality/question?question_number=${num}`)
+  ).data;
+
+  return questions;
+}
+
 export const deleteBrain = async (
   brainId: string,
   axiosInstance: AxiosInstance
@@ -81,6 +96,37 @@ export const getBrains = async (
   return brains.map(mapBackendMinimalBrainToMinimalBrain);
 };
 
+export const getBrainsFromChat = async (
+  chatString: string,
+  axiosInstance: AxiosInstance
+): Promise<BrainResult[]> => {
+  const brains = (
+    await axiosInstance.post<{ brains: BrainResult[] }>(
+      `/chat/choose`,
+      {
+        "question": chatString
+      }
+    )
+  );
+
+// @ts-ignore brains variable has data property but not recognized here
+  return brains.data;
+};
+
+export const getLinkedinScraping = async (
+  id: string,
+  axiosInstance: AxiosInstance
+): Promise<string> => {
+  const brains = (
+    await axiosInstance.post<{ message: string }>(
+      `/crawl/linkedin?brain_id=${id}`
+    )
+  );
+
+// @ts-ignore brains variable has data property but not recognized here
+  return brains.data.message;
+};
+
 export type Subscription = { email: string; role: BrainRoleType };
 
 export const addBrainSubscriptions = async (
@@ -92,6 +138,22 @@ export const addBrainSubscriptions = async (
     `/brains/${brainId}/subscription`,
     subscriptions.map(mapSubscriptionToBackendSubscription)
   );
+};
+
+export const endPersonalTest = async (
+  answers: Answer[],
+  axiosInstance: AxiosInstance
+): Promise<Personality | undefined> => {
+  const testResult = (
+    await axiosInstance.post<Personality | undefined>(
+      `/personality/`,
+      answers
+    )
+  ).data;
+
+  console.log(testResult)
+
+  return testResult
 };
 
 export const getBrainUsers = async (

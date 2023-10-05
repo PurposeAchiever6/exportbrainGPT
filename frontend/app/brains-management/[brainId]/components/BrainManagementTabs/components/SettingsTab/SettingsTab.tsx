@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 
 import { UUID } from "crypto";
-import { FaSpinner } from "react-icons/fa";
 
 import Button from "@/lib/components/ui/Button";
 import { Divider } from "@/lib/components/ui/Divider";
@@ -10,7 +9,6 @@ import { TextArea } from "@/lib/components/ui/TextArea";
 import { models, paidModels } from "@/lib/context/BrainConfigProvider/types";
 import { defineMaxTokens } from "@/lib/helpers/defineMexTokens";
 
-import { PublicPrompts } from "./components/PublicPrompts";
 import { useSettingsTab } from "./hooks/useSettingsTab";
 
 type SettingsTabProps = {
@@ -25,14 +23,14 @@ export const SettingsTab = ({ brainId }: SettingsTabProps): JSX.Element => {
     temperature,
     maxTokens,
     model,
+    // linkedin,
+    // extraversion,
+    // neuroticism,
+    // conscientiousness,
     setAsDefaultBrainHandler,
     isSettingAsDefault,
-    isUpdating,
     isDefaultBrain,
     formRef,
-    promptId,
-    pickPublicPrompt,
-    removeBrainPrompt,
   } = useSettingsTab({ brainId });
 
   return (
@@ -130,33 +128,59 @@ export const SettingsTab = ({ brainId }: SettingsTabProps): JSX.Element => {
           {...register("maxTokens")}
         />
       </fieldset>
-      <Divider text="Custom prompt" />
-      <PublicPrompts onSelect={pickPublicPrompt} />
-      <Field
-        label="Prompt title"
-        placeholder="My awesome prompt name"
-        autoComplete="off"
-        className="flex-1"
-        {...register("prompt.title")}
-      />
-      <TextArea
-        label="Prompt content"
-        placeholder="As an AI, your..."
-        autoComplete="off"
-        className="flex-1"
-        {...register("prompt.content")}
-      />
-      {promptId !== "" && (
-        <Button disabled={isUpdating} onClick={() => void removeBrainPrompt()}>
-          Remove prompt
-        </Button>
-      )}
-      <div className="flex flex-row justify-end flex-1 w-full mt-8">
-        {isUpdating && <FaSpinner className="animate-spin" />}
-        {isUpdating && (
-          <span className="ml-2 text-sm">Updating brain settings...</span>
-        )}
+      <div className="flex items-center justify-center">
+        <hr className="border-t border-gray-300 w-12" />
+        <p className="px-3 text-center text-gray-500 dark:text-white">
+          Personality
+        </p>
+        <hr className="border-t border-gray-300 w-12" />
       </div>
+
+      
+          <Field
+            label="Linkedin"
+            autoFocus
+            autoComplete="off"
+            className="flex-1"
+            {...register("linkedin")}
+          />
+
+      
+          <Field
+            label="Extraversion"
+            autoFocus
+            autoComplete="off"
+            className="flex-1"
+            {...register("extraversion")}
+          />
+
+          <Field
+            label="Conscientiousness"
+            autoFocus
+            autoComplete="off"
+            className="flex-1"
+            {...register("conscientiousness")}
+          />
+
+          <Field
+            label="Neuroticism"
+            autoFocus
+            autoComplete="off"
+            className="flex-1"
+            {...register("neuroticism")}
+          />
+
+      {/* {createVisiable ? ( */}
+        <Button
+          className="mt-12 self-end"
+          type="submit"
+        >
+          Update
+          {/* <MdAdd className="text-xl" /> */}
+        </Button>
+      {/* ) : (
+        <></>
+      )} */}
     </form>
   );
 };

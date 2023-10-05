@@ -61,6 +61,7 @@ export const UserToInvite = ({
         />
       </div>
       <Select
+      // @ts-ignore I have specific reason
         onChange={setSelectedRole}
         value={selectedRole}
         options={userRoleToAssignableRoles[currentBrain.role]}

@@ -34,11 +34,15 @@ class BrainUpdatableProperties(BaseModel):
     name: Optional[str]
     description: Optional[str]
     temperature: Optional[float]
+    linkedin: Optional[str] = None
     model: Optional[str]
     max_tokens: Optional[int]
     openai_api_key: Optional[str]
     status: Optional[str]
     prompt_id: Optional[UUID]
+    extraversion: Optional[int] = None
+    neuroticism: Optional[int] = None
+    conscientiousness: Optional[int] = None
 
     def dict(self, *args, **kwargs):
         brain_dict = super().dict(*args, **kwargs)

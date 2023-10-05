@@ -257,13 +257,13 @@ Example Scenarios:
         Following is example of result:
         [
             {
-                "trait": "Extraversion",
+                "trait": "extraversion",
                 "positive": true,
                 "question": "Do you frequently enjoy social activities?",
                 "answer": 4
             },
             {
-                "trait": "Extraversion",
+                "trait": "extraversion",
                 "positive": true,
                 "question": "Do you prefer to work in teams?",
                 "answer": 3

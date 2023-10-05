@@ -11,6 +11,13 @@ ENDPOINT = "http://walletgpt.info:5050"
 
 ########## BRAIN ##########
 # Retrieve all brains for the current user.
+def test_get_brain_information(token, brain_id):
+    headers = {'Authorization': f'Bearer {token}'}
+    response = requests.get(url=ENDPOINT+f'/brains/{brain_id}/', headers=headers)
+    logger.info('test_get_brains')
+    logger.info(f"status_code: {response.status_code}, \ttext: {response.text}")
+
+# Retrieve all brains for the current user.
 def test_get_brains(token):
     headers = {'Authorization': f'Bearer {token}'}
     response = requests.get(url=ENDPOINT+'/brains/', headers=headers)
@@ -310,6 +317,8 @@ if __name__ == "__main__":
     #################### Get All brains ####################
     # test_get_brains(hongyu_token)
 
+    test_get_brain_information(hongyu_token, '7b78d424-4d17-4ef1-bcea-f28de168c5d9')
+
     #################### Linkedin scraping ####################
     brain_ids = [
         "fdcce4d8-fba7-4276-b9f6-53c5e8a3a3b0",
@@ -371,7 +380,7 @@ if __name__ == "__main__":
     # test_post_create_chat(token=hongyu_token, name="api test chat")
 
     #################### new question response from chat ####################
-    test_post_chat(token=hongyu_token, chat_id="0b566e14-dc11-4c71-a4ac-34f0daf72970", brain_id=brain_ids[0], question="What is your favorate?")
+    # test_post_chat(token=hongyu_token, chat_id="0b566e14-dc11-4c71-a4ac-34f0daf72970", brain_id=brain_ids[0], question="What is your favorate?")
 
     #################### stream new question response from chat ####################
     # test_post_chat_stream(token=hongyu_token, chat_id="0b566e14-dc11-4c71-a4ac-34f0daf72970", brain_id=brain_ids[0], question="What is your favorate?")

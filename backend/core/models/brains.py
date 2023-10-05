@@ -102,6 +102,8 @@ class Brain(BaseModel):
             self.supabase_db.delete_brain_user(self.id)
             self.supabase_db.delete_brain(self.id)
 
+            self.qdrant_db.delete_all_vectors_from_brain(self.id)
+
     def create_brain_vector(self, vector_id, file_sha1):
         return self.supabase_db.create_brain_vector(self.id, vector_id, file_sha1)
 
@@ -132,7 +134,12 @@ class Brain(BaseModel):
         Retrieve unique brain data (i.e. uploaded files and crawled websites).
         """
 
-        self.datas = self.supabase_db.get_brain_metadatas(self.id)
+        metadatas = self.supabase_db.get_brain_metadatas(self.id)
+        self.datas = [{
+            'name': metadata['data_name'],
+            'size': metadata['data_size'],
+            'sha1': metadata['data_sha1'],
+        } for metadata in metadatas]
         # self.files = get_unique_files_from_vector_ids(vector_ids)
 
         return self.datas

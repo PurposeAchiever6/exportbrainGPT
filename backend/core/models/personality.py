@@ -2,7 +2,7 @@ from typing import Any, List, Optional
 from pydantic import BaseModel
 
 class TestResult(BaseModel):
-    trait: Optional[str] = "Extraversion"
+    trait: Optional[str] = "extraversion"
     positive: bool = True,
     question: Optional[str] = ""
     answer: Optional[int] = 0

@@ -40,19 +40,19 @@ const DocumentItem = forwardRef(
       throw new Error("User session not found");
     }
 
-    const deleteDocument = async (name: string) => {
+    const deleteDocument = async (document: Document) => {
       setIsDeleting(true);
       void track("DELETE_DOCUMENT");
       try {
         if (currentBrain?.id === undefined)
           throw new Error("Brain id not found");
         await axiosInstance.delete(
-          `/explore/${name}/?brain_id=${currentBrain.id}`
+          `/explore/data/${document.sha1}/?brain_id=${currentBrain.id}`
         );
-        setDocuments((docs) => docs.filter((doc) => doc.name !== name)); // Optimistic update
+        setDocuments((docs) => docs.filter((doc) => doc.sha1 !== document.sha1)); // Optimistic update
         publish({
           variant: "success",
-          text: `${name} deleted from brain ${currentBrain.name}.`,
+          text: `${document.name} deleted from brain ${currentBrain.name}.`,
         });
       } catch (error) {
         console.error(`Error deleting ${name}`, error);
@@ -91,7 +91,7 @@ const DocumentItem = forwardRef(
                   variant={"danger"}
                   isLoading={isDeleting}
                   onClick={() => {
-                    deleteDocument(document.name);
+                    deleteDocument(document);
                   }}
                   className="self-end"
                 >

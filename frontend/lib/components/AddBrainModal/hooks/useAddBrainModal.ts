@@ -28,6 +28,10 @@ export const useAddBrainModal = () => {
       title: "",
       content: "",
     },
+    linkedin: "",
+    conscientiousness: 0,
+    neuroticism: 0,
+    extraversion: 0
   };
 
   const { register, getValues, reset, watch, setValue } = useForm({
@@ -54,7 +58,7 @@ export const useAddBrainModal = () => {
   };
 
   const handleSubmit = async () => {
-    const { name, description, setDefault } = getValues();
+    const { name, description, linkedin, conscientiousness, neuroticism, extraversion, setDefault } = getValues();
 
     if (name.trim() === "" || isPending) {
       return;
@@ -73,6 +77,10 @@ export const useAddBrainModal = () => {
         openai_api_key: openAiKey,
         temperature,
         prompt_id,
+        linkedin,
+        conscientiousness,
+        neuroticism,
+        extraversion,
       });
 
       if (createdBrainId === undefined) {
@@ -142,6 +150,7 @@ export const useAddBrainModal = () => {
     isShareModalOpen,
     setIsShareModalOpen,
     handleSubmit,
+    setValue,
     register,
     openAiKey,
     model,

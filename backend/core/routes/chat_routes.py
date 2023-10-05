@@ -418,11 +418,12 @@ async def get_brain_history_handler(
     tags=["Chat"],
 )
 async def choose_nearest_experts(
-    request: Request,
-    chat_question: ChatQuestion,
-    current_user: User = Depends(get_current_user),    
+    chat_question: ChatQuestion  
 ) -> []:
     query = chat_question.question
     qdrant_db = get_qdrant_db()
     brain_id_scores = qdrant_db.get_nearest_brain_list(query=query, limit=5)
-    return brain_id_scores
+    print(brain_id_scores)
+
+    recommended_brains = [{'name': get_brain_details(brain_score['brain_id']).name, **brain_score} for brain_score in brain_id_scores]
+    return recommended_brains

@@ -52,6 +52,13 @@ async def crawl_endpoint(
                 file_path,
                 file_name,
             ) = crawl_website.process()  # pyright: ignore reportPrivateUsage=none
+            if not file_path:
+                message = {
+                    "message": f"❌ This website can't crawl",
+                    "type": "error",
+                }
+                return message
+
             # Create a SpooledTemporaryFile from the file_path
             spooled_file = SpooledTemporaryFile()
             with open(file_path, "rb") as f:

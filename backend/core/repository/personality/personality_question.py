@@ -5,7 +5,7 @@ import re
 
 
 responsiveness = ["Disagree Strongly", "Disagree a little", "Neither agree nor disagree", "Agree a little", "Agree strongly"]
-traits = ['Extraversion', 'Neuroticism', 'Conscientiousness']
+traits = ['extraversion', 'neuroticism', 'conscientiousness']
 
 prompt_text_muliple = """Generate {question_number} question to evaluate "{trait}" in a personality test. 
 The options for the respondent are: 
@@ -32,7 +32,7 @@ Response: <response>
 """
 
 # Muliple questions
-def generate_question(trait='Extraversion', question_number:int=1):
+def generate_question(trait='extraversion', question_number:int=1):
     openai.api_key = os.getenv("OPENAI_API_KEY")  
     output_list = []
     # for i in range(2):  # change this to a higher number if more questions are desired for each trait

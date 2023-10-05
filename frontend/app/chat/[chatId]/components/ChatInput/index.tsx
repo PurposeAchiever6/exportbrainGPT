@@ -6,6 +6,7 @@ import { useChat } from "@/app/chat/[chatId]/hooks/useChat";
 import { useState } from "react";
 import { ConfigModal } from "./components/ConfigModal";
 import { MicButton } from "./components/MicButton/MicButton";
+import { RecommendModal } from "./components/RecommendModal";
 
 export const ChatInput = (): JSX.Element => {
   const [message, setMessage] = useState<string>("");
@@ -54,6 +55,7 @@ export const ChatInput = (): JSX.Element => {
         <MicButton setMessage={setMessage} />
         <ConfigModal chatId={chatId} />
       </div>
+      <RecommendModal message = {message} />
     </form>
   );
 };

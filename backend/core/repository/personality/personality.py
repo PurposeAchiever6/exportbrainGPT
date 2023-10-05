@@ -1,4 +1,4 @@
-traits = ['Extraversion', 'Neuroticism', 'Conscientiousness']
+traits = ['extraversion', 'neuroticism', 'conscientiousness']
 extraversion_list = ["Wallflower", "Lone Wolf", "Social Butterfly", "Life of the Party"]
 neuroticism_list = ["Zen Master", "Stoic", "Dramatic", "Nervous Wreck"]
 conscientiousness_list = ["Absent", "Free Spirit", "Organized Assistant", "Rigid Perfectionist"]

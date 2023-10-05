@@ -27,16 +27,15 @@ class CrawlWebsite(BaseModel):
         content = self._crawl(self.url)
 
         # Create a file
-        file_name = slugify(self.url) + ".html"
-        temp_file_path = os.path.join(tempfile.gettempdir(), file_name)
-        with open(temp_file_path, "w") as temp_file:
-            temp_file.write(content)  # pyright: ignore reportPrivateUsage=none
-            # Process the file
-
         if content:
+            file_name = slugify(self.url) + ".html"
+            temp_file_path = os.path.join(tempfile.gettempdir(), file_name)
+            with open(temp_file_path, "w") as temp_file:
+                temp_file.write(content)  # pyright: ignore reportPrivateUsage=none
+            
             return temp_file_path, file_name
         else:
-            return None
+            return None, None
     
     def process_linkedin(self, apikey):
         data_name = slugify(self.url) + ".html"
