@@ -73,3 +73,6 @@ class Vector(Repository):
         )
 
         return response
+
+    def get_payloads_data_sha1(self, data_sha1):
+        pass

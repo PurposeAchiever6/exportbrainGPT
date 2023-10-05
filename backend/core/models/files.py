@@ -8,7 +8,8 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from logger import get_logger
 from models.brains import Brain
 from models.databases.supabase.supabase import SupabaseDB
-from models.settings import get_supabase_db
+from models.databases.qdrant.qdrant import QdrantDB
+from models.settings import get_supabase_db, get_qdrant_db
 from pydantic import BaseModel
 from utils.file import compute_sha1_from_file
 
@@ -31,6 +32,10 @@ class File(BaseModel):
     @property
     def supabase_db(self) -> SupabaseDB:
         return get_supabase_db()
+
+    @property
+    def qdrant_db(self) -> QdrantDB:
+        return get_qdrant_db()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -128,7 +133,7 @@ class File(BaseModel):
         Args:
             brain_id (str): Brain id
         """
-        response = self.supabase_db.get_brain_vectors_by_brain_id_and_file_sha1(
+        response = self.supabase_db.get_brain_data_by_brain_id_and_data_sha1(
             brain_id, self.file_sha1
         )
 
@@ -155,3 +160,6 @@ class File(BaseModel):
         for vector_id in self.vectors_ids:  # pyright: ignore reportPrivateUsage=none
             brain.create_brain_vector(vector_id["id"], self.file_sha1)
         print(f"Successfully linked file {self.file_sha1} to brain {brain.id}")
+
+    def upload_records_qdrant(self, records):
+        self.qdrant_db.upload_records(records)

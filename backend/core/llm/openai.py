@@ -26,6 +26,7 @@ class OpenAIBrainPicking(QABaseBrainPicking):
         max_tokens: int,
         user_openai_api_key: str,
         personality: Personality = None,
+        memory = None,
         streaming: bool = False,
     ) -> "OpenAIBrainPicking":  # pyright: ignore reportPrivateUsage=none
         """
@@ -40,6 +41,7 @@ class OpenAIBrainPicking(QABaseBrainPicking):
             temperature=temperature,
             user_openai_api_key=user_openai_api_key,
             personality=personality,
+            memory=memory,
             streaming=streaming,
         )
 

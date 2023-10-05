@@ -3,9 +3,12 @@ from uuid import UUID
 
 from logger import get_logger
 from models.databases.supabase.supabase import SupabaseDB
-from models.settings import BrainRateLimiting, get_supabase_client, get_supabase_db
+from models.databases.qdrant.qdrant import QdrantDB
+from models.settings import BrainRateLimiting, get_supabase_client, get_supabase_db, get_qdrant_client, get_qdrant_db
 from pydantic import BaseModel
 from supabase.client import Client
+from qdrant_client import QdrantClient
+
 from utils.vectors import get_unique_files_from_vector_ids
 
 logger = get_logger(__name__)
@@ -34,6 +37,14 @@ class Brain(BaseModel):
     @property
     def supabase_db(self) -> SupabaseDB:
         return get_supabase_db()
+
+    @property
+    def qdrant_client(self) -> QdrantClient:
+        return get_qdrant_client()
+
+    @property
+    def qdrant_db(self) -> QdrantDB:
+        return get_qdrant_db()
 
     @property
     def brain_size(self):
@@ -93,6 +104,9 @@ class Brain(BaseModel):
     def create_brain_vector(self, vector_id, file_sha1):
         return self.supabase_db.create_brain_vector(self.id, vector_id, file_sha1)
 
+    def create_brain_data(self, data_sha1:str, meatdata=None):
+        return self.supabase_db.create_brain_data(self.id, data_sha1, meatdata) 
+
     def get_vector_ids_from_file_sha1(self, file_sha1: str):
         return self.supabase_db.get_vector_ids_from_file_sha1(file_sha1)
 
@@ -114,6 +128,20 @@ class Brain(BaseModel):
 
     def delete_file_from_brain(self, file_name: str):
         return self.supabase_db.delete_file_from_brain(self.id, file_name)
+    
+    def delete_data_from_brain(self, data_sha1: str):
+        self.supabase_db.delete_data_from_brain(self.id, data_sha1)
+        # associated_brains_response = (
+        #     self.supabase_client.table("brains_data")
+        #     .select("brain_id")
+        #     .filter("data_sha1", "eq", data_sha1)
+        #     .execute()
+        # )
+        # associated_brains = [
+        #     item["brain_id"] for item in associated_brains_response.data
+        # ]
+        # if not associated_brains:
+        self.qdrant_db.delete_vectors_from_brain(self.id, data_sha1)
 
 
 class Personality:

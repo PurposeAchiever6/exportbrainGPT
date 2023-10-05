@@ -5,6 +5,8 @@ from uuid import UUID
 from uuid import uuid4
 from venv import logger
 
+from qdrant_client import models, QdrantClient
+from sentence_transformers import SentenceTransformer
 from langchain.memory import ZepMemory
 from auth import AuthBearer, get_current_user
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
@@ -14,7 +16,7 @@ from models.brains import Brain, Personality
 from models.chat import Chat, ChatHistory
 from models.chats import ChatQuestion
 from models.databases.supabase.supabase import SupabaseDB
-from models.settings import LLMSettings, get_supabase_db
+from models.settings import LLMSettings, DatabaseSettings, get_supabase_db, get_qdrant_db
 from models.users import User
 from repository.brain.get_brain_details import get_brain_details
 from repository.brain.get_default_user_brain_or_create_new import (
@@ -205,6 +207,8 @@ async def create_question_handler(
 
         if not brain_id:
             brain_id = get_default_user_brain_or_create_new(current_user).brain_id
+        
+        personality = Personality(extraversion=brain_details.extraversion, neuroticism=brain_details.neuroticism, conscientiousness=brain_details.conscientiousness)
 
         gpt_answer_generator = OpenAIBrainPicking(
             chat_id=str(chat_id),
@@ -212,6 +216,8 @@ async def create_question_handler(
             max_tokens=chat_question.max_tokens,
             temperature=chat_question.temperature,
             brain_id=str(brain_id),
+            personality=personality,
+            memory=memory,
             user_openai_api_key=current_user.user_openai_api_key,  # pyright: ignore reportPrivateUsage=none
         )
 
@@ -399,3 +405,23 @@ async def get_brain_history_handler(
 ) -> List[ChatHistory]:
     # TODO: RBAC with current_user
     return get_brain_history(brain_id)  # pyright: ignore reportPrivateUsage=none
+
+# choose nearest experts
+@chat_router.post(
+    "/chat/choose",
+    dependencies=[
+        Depends(
+            AuthBearer(),
+        ),
+    ],
+    tags=["Chat"],
+)
+async def choose_nearest_experts(
+    request: Request,
+    chat_question: ChatQuestion,
+    current_user: User = Depends(get_current_user),    
+) -> []:
+    query = chat_question.question
+    qdrant_db = get_qdrant_db()
+    brain_id_scores = qdrant_db.get_nearest_brain_list(query=query, limit=5)
+    return brain_id_scores

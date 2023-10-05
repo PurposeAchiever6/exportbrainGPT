@@ -1,0 +1,240 @@
+{
+  "public_identifier": "andrewyng",
+  "profile_pic_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/person/andrewyng/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20230905%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20230905T041957Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=751332dd29d260d730e6fb51a4401f2a9a6d8443fe8cb7744159bd54b3765e95",
+  "background_cover_image_url": null,
+  "first_name": "Andrew",
+  "last_name": "Ng",
+  "full_name": "Andrew Ng",
+  "follower_count": 1218498,
+  "occupation": "Founder & CEO at Landing AI",
+  "headline": "Founder and CEO of Landing AI; Founder of DeepLearning.AI; Managing General Partner of AI Fund",
+  "summary": "Personal home page: http://andrewng.org ",
+  "country": "US",
+  "country_full_name": "United States of America",
+  "city": "Palo Alto",
+  "state": "California",
+  "experiences": [
+    {
+      "starts_at": { "day": 1, "month": 9, "year": 2002 },
+      "ends_at": null,
+      "company": "Stanford University",
+      "company_linkedin_profile_url": null,
+      "title": "Adjunct Professor of Computer Science",
+      "description": "I continue to lead a research group at Stanford University, focusing on AI, Machine Learning and Deep Learning. Full history: Former Director of the Stanford AI Lab. Assistant Professor 2002-2009; Associate Professor with tenure 2009-2014; Associate (Research) Professor 2014-2015; Adjunct Professor 2015-present",
+      "location": null,
+      "logo_url": "https://media.licdn.com/dms/image/C560BAQHr9suxyJBXMw/company-logo_400_400/0/1635534378574?e=1699488000&v=beta&t=Fq59wzxlefwyAcMt3fDWwKmH9kL_z8rfa-b7B5jtQ00"
+    },
+    {
+      "starts_at": { "day": 1, "month": 1, "year": 2018 },
+      "ends_at": null,
+      "company": "AI Fund",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/aifund/",
+      "title": "Managing General Partner",
+      "description": "AI Fund is a startup studio building new AI companies from the ground up. Our companies bridge AI technology and applications, focusing on industries and problems that move the world forward. We are currently building 10 companies, that are working on AI applied to logistics, food and nutrition, recruiting, education, and other sectors.",
+      "location": null,
+      "logo_url": "https://media.licdn.com/dms/image/C4E0BAQFbE9Zab6cQEg/company-logo_400_400/0/1648235375906?e=1699488000&v=beta&t=7LQb1xfMw-WGQqztFsu_1FM9o1pl9YKa0CqIfYDbKjc"
+    },
+    {
+      "starts_at": { "day": 1, "month": 1, "year": 2012 },
+      "ends_at": null,
+      "company": "Coursera",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/coursera/",
+      "title": "Co-Founder and Chairman",
+      "description": "Coursera provides universal access to the world\u2019s best education, partnering with top universities and organizations to offer courses online. I hope Coursera will help many of you get access to knowledge and skills that was previously accessible only to a small number of persons. If you want to get started in machine learning, you can also take my course here: http://ml-class.org/",
+      "location": "Mountain View, CA",
+      "logo_url": "https://media.licdn.com/dms/image/C4D0BAQGexnfBxeEG-g/company-logo_400_400/0/1608039227697?e=1699488000&v=beta&t=IFvmk41rQ51pA6qubj2lMXhWj49cM3jJOTJH2TBWsAY"
+    },
+    {
+      "starts_at": { "day": 1, "month": 6, "year": 2017 },
+      "ends_at": null,
+      "company": "deeplearning.ai",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/deeplearningai/",
+      "title": "Founder & CEO",
+      "description": "If you want to become good at Deep Learning and build a career in machine learning, taking the deeplearning.ai specialization on Coursera is a great way for you to get started!  https://www.deeplearning.ai/",
+      "location": null,
+      "logo_url": "https://media.licdn.com/dms/image/C560BAQEHKffoI8RwIQ/company-logo_400_400/0/1612806383093?e=1699488000&v=beta&t=Gp39WvvZgVrKKjXLxFM7xyA-DjH2YxoKanvNlmHc-4Y"
+    },
+    {
+      "starts_at": { "day": 1, "month": 10, "year": 2017 },
+      "ends_at": null,
+      "company": "Landing AI",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/landing-ai/",
+      "title": "Founder & CEO",
+      "description": "We\u2019re hiring! Apply here: https://www.landing.ai/career \n\nLanding AI will help great companies become great AI companies. Every industry will need to leverage Artificial Intelligence. But there is no one-size-fits-all approach to adopting AI, because every enterprise holds unique domain knowledge, business goals and historical data. Landing AI works with partners in two distinct ways: AI-powered SaaS solutions and corporate-level AI transformation programs.",
+      "location": "Palo Alto, California",
+      "logo_url": "https://media.licdn.com/dms/image/C560BAQFH1bjvMK-Jtw/company-logo_400_400/0/1567636895378?e=1699488000&v=beta&t=9xI5-KcDdwajKXfE4F2UM9Vzo-FAj0y_jmURSiyu_O0"
+    },
+    {
+      "starts_at": { "day": 1, "month": 10, "year": 2017 },
+      "ends_at": null,
+      "company": "Woebot Labs Inc",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/woebot-health/",
+      "title": "Chairman of the Board",
+      "description": "Woebot is using AI and NLP to build a chatbot that will help the millions of people who struggle with their mental health. Mental health is in crisis: Depression is the leading global cause of disability, and on US university campuses, about 50% of students report anxiety or depression so severe that they can\u2019t function. Building a chatbot for mental health represents a grand challenge for NLP.",
+      "location": "San Francisco Bay Area",
+      "logo_url": "https://media.licdn.com/dms/image/C4D0BAQFyuXjl_zdJLw/company-logo_400_400/0/1642006933525?e=1699488000&v=beta&t=DZSCr6gixWH8ySTZTkaHtZS660QKrW0V9IwcenA3Bsk"
+    },
+    {
+      "starts_at": { "day": 1, "month": 6, "year": 2017 },
+      "ends_at": { "day": 1, "month": 6, "year": 2019 },
+      "company": "drive.ai",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/drive.ai/",
+      "title": "Member of Board Of Directors",
+      "description": "Drive.ai is a self-driving company that was acquired by Apple.",
+      "location": "Mountain View CA",
+      "logo_url": "https://media.licdn.com/dms/image/C4D0BAQE_2uhaP0qrJQ/company-logo_400_400/0/1519907963832?e=1699488000&v=beta&t=-RNR_FeJbnwNG0LltZFWdO1sFVrCJ6cROt-0BADghp8"
+    },
+    {
+      "starts_at": { "day": 1, "month": 5, "year": 2014 },
+      "ends_at": { "day": 1, "month": 4, "year": 2017 },
+      "company": "Baidu, Inc.",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/baidu-inc/",
+      "title": "Chief Scientist",
+      "description": "Led Baidu's AI Group, a ~1,300 person team including the 300-person Baidu Research. The AI Group was responsible for many dozens of AI projects supporting Baidu's existing businesses in search, advertising, maps, take-out delivery, voice search, security, consumer finance and many more. It was also responsible for initiating and launching new AI-powered businesses, such as DuerOS (conversational computer platform), Autonomous Driving, Face recognition, and others.",
+      "location": "Sunnyvale, CA",
+      "logo_url": "https://media.licdn.com/dms/image/C560BAQHZjF01MQpX9w/company-logo_400_400/0/1519856837167?e=1699488000&v=beta&t=QyFpFCgyznr0GOBkDO26bsYU3gpD84tS9-dTgX6Zk5k"
+    },
+    {
+      "starts_at": { "day": 1, "month": 1, "year": 2011 },
+      "ends_at": { "day": 1, "month": 6, "year": 2012 },
+      "company": "Google",
+      "company_linkedin_profile_url": "https://www.linkedin.com/company/google/",
+      "title": "Founder and Lead, Google Brain (Deep Learning) project",
+      "description": "Deep learning (artificial neural networks) is a very powerful machine learning technology, but being able to scale them is key to their performance.  Using Google's computational resources, we developed one of the largest deep learning systems in the world.  This led to the famous \"Google Cat\" result, in which our system learned by itself how to recognize objects (such as cats) simply by watching YouTube videos.  More usefully, this technology has also been deployed to numerous Google products, such as speech recognition, Streetview, and many others.  http://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html?pagewanted=all",
+      "location": "Mountain View, CA",
+      "logo_url": "https://media.licdn.com/dms/image/C4D0BAQHiNSL4Or29cg/company-logo_400_400/0/1519856215226?e=1699488000&v=beta&t=EsSDZ2Y_GjZaukIjM01lnrkYLQnzUSayG2VQ66fT5iY"
+    }
+  ],
+  "education": [],
+  "languages": [],
+  "accomplishment_organisations": [],
+  "accomplishment_publications": [],
+  "accomplishment_honors_awards": [],
+  "accomplishment_patents": [],
+  "accomplishment_courses": [],
+  "accomplishment_projects": [],
+  "accomplishment_test_scores": [],
+  "volunteer_work": [],
+  "certifications": [
+    {
+      "starts_at": { "day": 1, "month": 2, "year": 2013 },
+      "ends_at": null,
+      "name": "Introduction to Digital Sound Design",
+      "license_number": null,
+      "display_source": "coursera.org",
+      "authority": "Coursera",
+      "url": "https://www.coursera.org/course/digitalsounddesign"
+    }
+  ],
+  "connections": null,
+  "people_also_viewed": [
+    {
+      "link": "https://www.linkedin.com/in/shravan",
+      "name": "Shravan Goli",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/chiphuyen",
+      "name": "Chip Huyen",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/laurence-moroney",
+      "name": "Laurence Moroney",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/stevenouri",
+      "name": "Steve Nouri",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/anima-anandkumar",
+      "name": "Anima Anandkumar",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/andy-jassy-8b1615",
+      "name": "Andy Jassy",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/satyanadella",
+      "name": "Satya Nadella",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/drewhouston",
+      "name": "Drew Houston",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/khanacademy",
+      "name": "Sal Khan",
+      "summary": null,
+      "location": null
+    },
+    {
+      "link": "https://www.linkedin.com/in/clementmihailescu",
+      "name": "Clement Mihailescu",
+      "summary": null,
+      "location": null
+    }
+  ],
+  "recommendations": [],
+  "activities": [],
+  "similarly_named_profiles": [
+    {
+      "name": "Andrew Ng",
+      "link": "https://my.linkedin.com/in/andrew-ng-10a89ab0",
+      "summary": "Head of Payment Partnership in Shell Malaysia",
+      "location": "Kuala Lumpur"
+    },
+    {
+      "name": "Andrew Ng",
+      "link": "https://sg.linkedin.com/in/andrew-ng-73488571",
+      "summary": "Vice President at MUFG",
+      "location": "Singapore"
+    },
+    {
+      "name": "Andrew Ng",
+      "link": "https://sg.linkedin.com/in/andrew-ng-582013101",
+      "summary": "Assistant Manager - Group Operations",
+      "location": "Singapore"
+    },
+    {
+      "name": "Andrew Ng",
+      "link": "https://sg.linkedin.com/in/sc-ng-andrew",
+      "summary": "Hybrid Data Engineer-Scientist  >>Georgia Tech MS Analytics Graduate",
+      "location": "Singapore"
+    }
+  ],
+  "articles": [],
+  "groups": [],
+  "skills": [
+    "Education",
+    "Educational Technology",
+    "Machine Learning",
+    "Artificial Intelligence"
+  ],
+  "inferred_salary": { "min": null, "max": null },
+  "gender": null,
+  "birth_date": null,
+  "industry": null,
+  "extra": {
+    "github_profile_id": null,
+    "twitter_profile_id": null,
+    "facebook_profile_id": null
+  },
+  "interests": [],
+  "personal_emails": ["andrewng@baidu.com"],
+  "personal_numbers": ["+16503879561"]
+}

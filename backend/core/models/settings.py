@@ -1,7 +1,9 @@
 from langchain.embeddings.openai import OpenAIEmbeddings
 from models.databases.supabase.supabase import SupabaseDB
+from models.databases.qdrant.qdrant import QdrantDB
 from pydantic import BaseSettings
 from supabase.client import Client, create_client
+from qdrant_client import QdrantClient
 from vectorstore.supabase import SupabaseVectorStore
 
 
@@ -19,6 +21,10 @@ class BrainSettings(BaseSettings):
     resend_api_key: str = "null"
     resend_email_address: str = "brain@mail.quivr.app"
 
+class DatabaseSettings(BaseSettings):
+    qdrant_location: str
+    qdrant_port: int
+    encoder_model: str
 
 class LLMSettings(BaseSettings):
     private: bool = False
@@ -32,11 +38,20 @@ def get_supabase_client() -> Client:
     )
     return supabase_client
 
+def get_qdrant_client() -> QdrantClient:
+    settings = DatabaseSettings()  # pyright: ignore reportPrivateUsage=none
+    qdrant_client: QdrantClient = QdrantClient(
+        settings.qdrant_location, port=settings.qdrant_port
+    )
+    return qdrant_client
 
 def get_supabase_db() -> SupabaseDB:
     supabase_client = get_supabase_client()
     return SupabaseDB(supabase_client)
 
+def get_qdrant_db() -> QdrantDB:
+    qdrant_client = get_qdrant_client()
+    return QdrantDB(qdrant_client)
 
 def get_embeddings() -> OpenAIEmbeddings:
     settings = BrainSettings()  # pyright: ignore reportPrivateUsage=none

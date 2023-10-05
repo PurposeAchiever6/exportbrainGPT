@@ -52,6 +52,26 @@ async def delete_endpoint(
     }
 
 
+@explore_router.delete(
+    "/explore/data/{data_sha1}/",
+    dependencies=[
+        Depends(AuthBearer()),
+        Depends(has_brain_authorization(RoleEnum.Owner)),
+    ],
+    tags=["Explore"],
+)
+async def delete_data_endpoint(
+    data_sha1: str,
+    current_user: User = Depends(get_current_user),
+    brain_id: UUID = Query(..., description="The ID of the brain"),
+):
+    """
+    Delete a specific data by data_sha1.
+    """
+    brain = Brain(id=brain_id)
+    brain.delete_data_from_brain(data_sha1)
+
+
 @explore_router.get(
     "/explore/{file_name}/", dependencies=[Depends(AuthBearer())], tags=["Explore"]
 )
