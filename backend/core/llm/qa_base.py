@@ -169,7 +169,7 @@ class QABaseBrainPicking(BaseBrainPicking):
             }
         )
 
-    async def generate_stream(self, question: str) -> AsyncIterable:
+    async def generate_stream(self, question: str, memory=None) -> AsyncIterable:
         """
         Generate a streaming answer to a given question by interacting with the language model.
         :param question: The question
@@ -196,7 +196,7 @@ class QABaseBrainPicking(BaseBrainPicking):
 
         # The Chain that combines the question and answer
         qa = ConversationalRetrievalChain(
-            retriever=self.vector_store.as_retriever(), combine_docs_chain=doc_chain, question_generator=standalone_question_generator)
+            retriever=self.vector_store.as_retriever(), combine_docs_chain=doc_chain, question_generator=standalone_question_generator, memory=memory)
         
         transformed_history = []
 

@@ -42,9 +42,16 @@ class CrawlWebsite(BaseModel):
         else:
             return False
 
+    def checkLinkedIn(self):
+        if "linkedin.com" in self.url:
+            return True
+        else:
+            return False
+
 
 def slugify(text):
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("utf-8")
+    text = unicodedata.normalize("NFKD", text).encode(
+        "ascii", "ignore").decode("utf-8")
     text = re.sub(r"[^\w\s-]", "", text).strip().lower()
     text = re.sub(r"[-\s]+", "-", text)
     return text

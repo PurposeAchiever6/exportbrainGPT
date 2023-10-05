@@ -2,8 +2,10 @@ import os
 import time
 from typing import List
 from uuid import UUID
+from uuid import uuid4
 from venv import logger
 
+from langchain.memory import ZepMemory
 from auth import AuthBearer, get_current_user
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
@@ -25,6 +27,16 @@ from repository.chat.get_brain_history import get_brain_history
 from repository.chat.get_user_chats import get_user_chats
 from repository.chat.update_chat import ChatUpdatableProperties, update_chat
 from repository.user_identity.get_user_identity import get_user_identity
+
+ZEP_API_URL = os.getenv("ZEP_API_URL")
+
+session_id = str(uuid4())
+memory = ZepMemory(
+    session_id=session_id,
+    url=ZEP_API_URL,
+    memory_key="chat_history",
+    return_messages=True
+)
 
 chat_router = APIRouter()
 
@@ -287,7 +299,8 @@ async def create_stream_question_handler(
         print("streaming")
         return StreamingResponse(
             gpt_answer_generator.generate_stream(  # pyright: ignore reportPrivateUsage=none
-                chat_question.question
+                chat_question.question,
+                memory=memory
             ),
             media_type="text/event-stream",
         )

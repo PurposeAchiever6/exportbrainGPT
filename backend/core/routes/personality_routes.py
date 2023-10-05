@@ -4,6 +4,8 @@ from auth import AuthBearer, get_current_user
 from fastapi import APIRouter, Depends
 from repository.personality.personality_question import generate_question_all
 from repository.personality.personality import personality
+from typing import List
+from models.personality import TestResult  # , TestResultList
 
 personality_router = APIRouter()
 
@@ -24,5 +26,5 @@ async def get_personality_questions(question_number:int = 1):
 
 # get personality from test results
 @personality_router.post("/personality/", dependencies=[Depends(AuthBearer())], tags=["Personality"])
-async def get_personality(results):
+async def get_personality(results: List[TestResult]):
     return personality(results)

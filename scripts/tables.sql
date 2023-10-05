@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS brains (
   temperature FLOAT,
   openai_api_key TEXT,
   prompt_id UUID REFERENCES prompts(id),
+  linkedin TEXT,
   extraversion INT,
   neuroticism INT,
   conscientiousness INT

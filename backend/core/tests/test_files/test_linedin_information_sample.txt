@@ -1,0 +1,66 @@
+
+Name: Andrew Ng
+Description: Founder of DeepLearning.AI; Managing General Partner of AI Fund; Founder and CEO of Landing AI
+
+
+Experience
+
+Role: Founder
+Company: DeepLearning.AI
+Jun 2017 - Present6 years 3 months
+Palo Alto, California, United States
+DeepLearning.AI provides technical training on Generative AI, Machine Learning, Deep Learning, and other topics. We also offer a widely read newsletter, The Batch (thebatch.ai), that covers what matters in AI right now. Our courses are often created with industry-leading AI companies (AWS, Google, OpenAI, etc.), and we offer both short courses that can be completed in an hour, and longer courses and specializations hosted on Coursera that give you a solid foundation in some aspect of AI. These courses are designed to offer hands-on practice with AI technologies, and you will gain practical, job-ready skills. Whether you are just starting out in AI or seeking to further an existing career, come see if we can help, at http://deeplearning.ai!            
+
+Role: Managing General Partner
+Company: AI Fund
+Jan 2018 - Present5 years 8 months
+AI Fund is a venture studio that partners with entrepreneurs to build AI companies that move humanity forward. We don't just provide capital, we actively help build the company: we seek to play at least a minor co-founder role in the companies we engage in. After identifying a concrete startup idea, we actively help the founder validate both customer need and technical feasibility (often collaborating to build a technical prototype), help shape the AI technology roadmap, the go-to-market, and help recruit the key leaders, including the AI engineering team. Because AI is a general purpose technology that can be applied to numerous sectors -- including ones that we at AI Fund don't have expertise in -- we partner with subject matter experts (SMEs) in logistics, healthcare, education, relationships, finance, and other sectors. By leveraging our AI expertise and the SME's expertise in an important application sector, we can build a promising AI business in that sector. We take responsible AI seriously and will, on ethical grounds, choose not to pursue projects that we otherwise assess to be financially sound            
+
+Role: Founder & CEO
+Company: Landing AI
+Oct 2017 - Present5 years 11 months
+Palo Alto, California
+Landing AI provides software that makes computer vision easy. Using Landing AI's tools, many vision projects that used to take 6-12 months can now be built in days, and deployed at either cloud or edge. Enabled by the Transformer neural network (created by the Google Brain team), the Generative AI revolution has arrived in text processing. By scaling up the more recent Vision Transformer neural network, we believe a revolution is also coming in image processing. Landing AI is developing these technologies to offer an easy, low code platform for computer vision, which users are applying in manufacturing inspection, industrial automation, life sciences, agriculture, geo-spatial imagery, and other sectors. Key technical innovations include Data-centric AI, the discipline of systematically engineering data to build an AI system, and Visual Prompting, which allows you to build a computer vision system in seconds, via specifying a "visual prompt" by swiping a handful of pixels            
+
+Role: Co-Founder and Chairman
+Company: Coursera
+Jan 2012 - Present11 years 8 months
+Mountain View, CA
+Coursera (NYSE: COUR) envisions a world where anyone, anywhere has the power to transform their lives through learning. Coursera had started with my Machine Learning class and a nascent online education product I had built at Stanford. I served as the company's Co-CEO in the early years with day-to-day responsibility for product, engineering, sales, marketing and operations, and remain Chairman of the company today. Coursera now has over 100M learners, and we partner with more than 275 leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organizations. Coursera's offerings include courses, specializations, job-ready professional certificates and degree programs. http://coursera.org            
+
+Role: Adjunct Professor of Computer Science
+Company: Stanford University
+Sep 2002 - Present21 years
+I was the Director of the Stanford AI Lab (https://ai.stanford.edu/), home to 20+ faculty members and research groups, and a tenured professor in Stanford's Computer Science department. More recently, I switched to an Adjunct Professor role. My research group's work focused on AI, Deep Learning, Machine Learning and Robotics. Notable projects include early work in Deep Learning (that led to the founding of Google Brain), early work in online education (that led to the founding of Coursera), ROS (a widely used open-source robotics development platform), and work on Reinforcement Learning for robotic control (such as the Stanford autonomous helicopter). More recent efforts include applications of AI to Healthcare and to Climate Change            
+
+Role: Member of Board Of Directors
+Company: drive.ai
+Jun 2017 - Jun 20192 years 1 month
+Mountain View CA
+
+Role: Chief Scientist & VP
+Company: Baidu, Inc.
+May 2014 - Apr 20173 years
+Sunnyvale, CA
+I led Baidu's AI Group, a 1,300 person team including 300 in Baidu Research, and was responsible for the company's AI technology and strategy. My team built Baidu up to be China's leading AI company of its time. The AI Group delivered dozens of AI projects that significantly improved Baidu search, advertising, maps, delivery logistics, voice search, security, consumer finance and many more. I was also responsible for initiating and launching new AI-powered businesses, such as DuerOS (a very successful conversational computer platform), Autonomous Driving (now Apollo), and others. Other major products that I was responsible for included Image Search and the Baidu keyboard (with over 100M MAU)            
+
+Role: Founder and Lead, Google Brain (Deep Learning) project
+Company: Google
+Jan 2011 - Jun 20121 year 6 months
+Mountain View, CA
+I started and led the Google Brain team, which helped Google transform into a modern AI company by developing advanced Deep Learning technology, and moving the company to adopt it for numerous business applications. The Google Brain team's success was the inspiration for many other companies to build up their own AI teams. Using Google's compute infrastructure, we started by proving that scaling up data and compute leads to huge performance improvements, and also created the famous "Google Cat" demonstration of AI learning to recognize objects (such as cats) by itself. Our technology for building large scale AI models was the pre-cursor to TensorFlow, and also allowed us to take deep learning to valuable Google products including ads, speech recognition, maps, and many others. http://www.nytimes.com/2012/06/26/technology/in-a-big-network-of-computers-evidence-of-machine-learning.html            
+
+
+Education
+
+University of California, Berkeley
+Doctor of Philosophy - PhDComputer Science
+2003 - Present
+
+Massachusetts Institute of Technology
+Master of Science - MSElectrical Engineering and Computer Science
+1998 - Present
+
+Carnegie Mellon University
+Bachelor of Science - BSMath/Computer Science, Statistics and Economics (triple major)
+1997 - Present

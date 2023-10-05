@@ -18,6 +18,7 @@ class CreateBrainProperties(BaseModel):
     max_tokens: Optional[int] = 256
     openai_api_key: Optional[str] = None
     prompt_id: Optional[UUID] = None
+    linkedin: Optional[str] = None
     extraversion: Optional[int] = None
     neuroticism: Optional[int] = None
     conscientiousness: Optional[int] = None
